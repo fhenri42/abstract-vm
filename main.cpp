@@ -5,43 +5,74 @@
 #include <list>
 
 #include "parseur.cpp"
+#include "errorControler.cpp"
 
 int main (int argc, char **argv) {
 
   Parseur *parse = new Parseur();
-  int erreur = 0;
+  ErrorControler erreur;
   if(argc >= 2) {
 
 
     std::string value;
+
     std::string nextValue = "";
     std::ifstream fd;
-    fd.open (argv[1]);
+
+    fd.open(argv[1]);
+
     while(!fd.eof()) {
       getline(fd,value);
 
       if (parse->exit) { nextValue = value; }
-      erreur = parse->checkeur(value);
-    //  std::cout << parse->exit << '\n';
-      if (parse->exit && nextValue != "") {
-        std::cout << "Exit must be the last instrucion" << '\n';
+
+      //erreur  = parse->checkeur(value)
+      //erreur = parse->lexeur(value);
+      if((erreur.needToStop(parse->checkeur(value), parse->exit, nextValue, fd) == 1 ||  erreur.needToStop(parse->lexeur(value), parse->exit, nextValue, fd) == 1) && fd != 0) {
+        std::cout << value << '\n';
         fd.close();
         return 0;
       }
+      // if (parse->exit && nextValue != "") {
+      //   std::cout << "Exit must be the last instrucion" << '\n';
+      //   fd.close();
+      //   return 0;
+      // }
+      //
+      // if(erreur == 1) {
+      //   std::cout << "ERROR" << '\n';
+      //   fd.close();
+      //   return 0;
+      // }
+      //
+      // if(erreur == 3) {
+      //   std::cout << "One of your int is to big" << '\n';
+      //   fd.close();
+      //   return 0;
+      // }
     }
-    if (!parse->exit) {
-      std::cout << "You must have an exit at the end of instrucions" << '\n';
+    if (erreur.endofFile(!parse->exit) == 1) {
       fd.close();
-      return 0;
+      std::exit(0);
     }
+    // if (!parse->exit) {
+    //   std::cout << "You must have an exit at the end of instrucions" << '\n';
+    //   fd.close();
+    //   return 0;
+    // }
+
+
     fd.close();
 
-
-    std::list<std::string>::const_iterator start;
+    std::list<VM_List>::const_iterator start;
     for(start = parse->vmList.begin(); start != parse->end; ++start)
     {
-             std::cout << *start << std::endl;
-           }
+      std::cout << "=======" << std::endl;
+      std::cout << start->info << std::endl;
+      std::cout << start->type << std::endl;
+      std::cout << start->value << std::endl;
+      std::cout << "=======" << std::endl;
+    }
   } else {
     for (std::string line; std::getline(std::cin, line);) {
       std::cout << line << std::endl;

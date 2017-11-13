@@ -4,11 +4,17 @@
 #include <string>
 #include <list>
 
-// struct vmList
-// {
-//   std::string instrucion;
-//   struct vmList *next;
-// };
+#include <iostream>
+#include <sstream>
+#include <regex>
+
+struct VM_List
+{
+  std::string info;
+  std::string type;
+  double value;
+
+};
 
 class Parseur
 {
@@ -20,15 +26,13 @@ class Parseur
 
     Parseur &operator=(Parseur const & src);  // operator d'affecationt
 
-//    void verife(void);
       int checkeur(std::string instrucion);
+      int lexeur(std::string instrucion);
       void push(std::string instrucion);
-//    vmList *pop(std::string instrucion);
 
-    std::list<std::string> vmList;
-    std::list<std::string>::const_iterator start;
-    std::list<std::string>::const_iterator end;
-    //struct vmList *instrucions;
+    std::list<VM_List> vmList;
+    std::list<VM_List>::const_iterator start;
+    std::list<VM_List>::const_iterator end;
     bool exit;
 
 };
