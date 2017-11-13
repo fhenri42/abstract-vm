@@ -39,16 +39,7 @@ int main (int argc, char **argv) {
       return 0;
     }
     fd.close();
-    std::list<VM_List>::const_iterator start;
     exec.start(parse);
-    for(start = parse->vmList.begin(); start != parse->end; ++start)
-    {
-      std::cout << "=======" << std::endl;
-      std::cout << start->info << std::endl;
-      std::cout << start->type << std::endl;
-      std::cout << start->value << std::endl;
-      std::cout << "=======" << std::endl;
-    }
   } else {
     for (std::string line; std::getline(std::cin, line);) {
       std::cout << line << std::endl;
