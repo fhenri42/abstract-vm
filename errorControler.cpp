@@ -24,7 +24,6 @@ int ErrorControler::needToStop(int type, bool isExit, std::string nextValue, int
   if (type == 3) { std::cout << "This instrucion is false:" << '\n'; return 1; }
   return 0;
 }
-int ErrorControler::endofFile(bool isExit) {
-  if (isExit) { std::cout << "You must have an exit at the end of instrucions" << '\n'; return 1; }
-  return 0;
+void ErrorControler::endofFile(bool isExit) {
+  if (isExit) { throw std::logic_error( "You must have an exit at the end of instrucions" ); }
 }

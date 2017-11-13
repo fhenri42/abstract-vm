@@ -14,9 +14,9 @@ int main (int argc, char **argv) {
   ErrorControler erreur;
   Executioner exec;
 
-
   if(argc >= 2) {
 
+    try {
     std::string value;
     std::string nextValue = "";
     std::ifstream fd;
@@ -32,14 +32,14 @@ int main (int argc, char **argv) {
         fd.close();
         return 0;
       }
+    }
+    erreur.endofFile(!parse->exit);
 
-    }
-    if (erreur.endofFile(!parse->exit) == 1) {
       fd.close();
-      return 0;
-    }
-    fd.close();
-    exec.start(parse);
+      exec.startVm(parse);
+    } catch ( const std::exception & e ) {
+      std::cerr << e.what();
+  }
   } else {
     for (std::string line; std::getline(std::cin, line);) {
       std::cout << line << std::endl;

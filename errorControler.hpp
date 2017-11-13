@@ -14,7 +14,7 @@ class ErrorControler
 
     ErrorControler &operator=(ErrorControler const & src);  // operator d'affecationt
     int needToStop(int type, bool isExit, std::string nextValue, int fds);
-    int endofFile(bool isExit);
+    void endofFile(bool isExit);
     bool exit;
 
 };

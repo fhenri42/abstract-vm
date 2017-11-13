@@ -8,6 +8,12 @@
 #include <sstream>
 #include <regex>
 #include "parseur.hpp"
+
+struct stack
+{
+  double value;
+};
+
 class Executioner
 {
   public:
@@ -18,9 +24,17 @@ class Executioner
 
     Executioner &operator=(Executioner const & src);  // operator d'affecationt
 
-    void start(Parseur *parse);
+    std::list<double> stack;
+    std::list<double>::const_iterator start;
+    std::list<double>::const_iterator end;
+    void startVm(Parseur *parse);
     void pop(void);
-    void push(void);
+    void dump(void);
+    void exitE(void);
+    void print(void);
+    double getLast(void);
+    double getLastAndPop(void);
+    void push(double value);
 };
 
 #endif
