@@ -1,13 +1,7 @@
 #include "parseur.hpp"
 
 Parseur::Parseur(void){
-  //  std::cout << "on est all aussi enfain, surtout ! " << '\n';
-
-  //this->instrucions =
   this->exit = false;
-  //  this->start = NULL;
-  //  this->end = this->vmList.end();
-  //  this->instrucions->instrucion = NULL;
   return;
 }
 
@@ -15,27 +9,13 @@ Parseur::Parseur(Parseur const &src) {
   return;
 }
 
-// Parseur &Parseur::operator=(Parseur const & src) {
-//
-//   this->ennemyDead = src.ennemyDead;
-//   return *this;
-// }
+Parseur &Parseur::operator=(Parseur const & src) {
+  return *this;
+}
 
 
 Parseur::~Parseur(void) {
-  std::cout << "MDR on est alll" << '\n';
-  //   struct EnnemyList *tmp;
-  //   std::string *tmp2;
-  //   while (this->ennemyList != NULL)
-  //   {
-  //       tmp = this->ennemyList;
-  //       tmp2 = this->ennemyList->ennemy;
-  //       this->ennemyList = this->ennemyList->next;
-  //       delete tmp2;
-  //       delete tmp;
-  //   }
-  //   delete this->ennemyList;
-  // return;
+   return;
 }
 
 //TODO

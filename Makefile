@@ -1,6 +1,6 @@
 EXEC = abstracVM
 
-SRCC = main.cpp\
+SRCC = main.cpp executioner.cpp parseur.cpp errorControler.cpp 
 
 OFILE = $(SRCC:%.cpp=%.o)
 

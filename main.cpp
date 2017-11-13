@@ -4,13 +4,16 @@
 
 #include <list>
 
-#include "parseur.cpp"
-#include "errorControler.cpp"
+#include "parseur.hpp"
+#include "errorControler.hpp"
+#include "executioner.hpp"
 
 int main (int argc, char **argv) {
 
   Parseur *parse = new Parseur();
   ErrorControler erreur;
+  Executioner exec;
+
 
   if(argc >= 2) {
 
@@ -37,6 +40,7 @@ int main (int argc, char **argv) {
     }
     fd.close();
     std::list<VM_List>::const_iterator start;
+    exec.start(parse);
     for(start = parse->vmList.begin(); start != parse->end; ++start)
     {
       std::cout << "=======" << std::endl;

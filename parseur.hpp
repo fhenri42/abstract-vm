@@ -18,22 +18,22 @@ struct VM_List
 
 class Parseur
 {
-  public:
+public:
 
-    Parseur(void);
-    Parseur(Parseur const &src); // Copy
-    ~Parseur(void);                // Destructeur de recopie
+  Parseur(void);
+  Parseur(Parseur const &src); // Copy
+  ~Parseur(void); // Destructeur de recopie
 
-    Parseur &operator=(Parseur const & src);  // operator d'affecationt
+  Parseur &operator=(Parseur const & src);  // operator d'affecationt
 
-      int checkeur(std::string instrucion);
-      int lexeur(std::string instrucion);
-      void push(std::string instrucion);
+  int checkeur(std::string instrucion);
+  int lexeur(std::string instrucion);
+  void push(std::string instrucion);
 
-    std::list<VM_List> vmList;
-    std::list<VM_List>::const_iterator start;
-    std::list<VM_List>::const_iterator end;
-    bool exit;
+  std::list<VM_List> vmList;
+  std::list<VM_List>::const_iterator start;
+  std::list<VM_List>::const_iterator end;
+  bool exit;
 
 };
 
