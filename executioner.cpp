@@ -1,5 +1,4 @@
 #include "executioner.hpp"
-
 Executioner::Executioner(void){
   return;
 }
@@ -16,70 +15,82 @@ Executioner::~Executioner(void) {
   return;
 }
 void Executioner::startVm(Parseur *parse) {
-
+  //this->stack = stack
   std::list<VM_List>::const_iterator start;
 
-  for(start = parse->vmList.begin(); start != parse->end; ++start)
+  for (start = parse->vmList.begin(); start != parse->end; ++start)
   {
-    if(start->info == "pop") { this->pop(); }
-    if(start->info == "dump") { this->dump(); }
-    if(start->info == "exit") { this->exitE(); }
-    if(start->info == "push") { this->push(start->value); }
-    if(start->info == "print") { this->print(); }
+    // if (start->info == "pop") { this->pop(); }
+    if (start->info == "dump") { this->dump(); }
+    // if (start->info == "exit") { this->exitE(); }
+    if (start->info == "push") { this->push(start->type,start->value); }
+    // if (start->info == "print") { this->print(); }
+    if (start->info == "add") {this->add();}
+  //  std::cout << start->info << '\n';
   }
-  // std::list<double>::const_iterator start2;
-  // this->start = this->stack.begin();
-  // this->end = this->stack.end();
-  //
-  // // for(start2 = this->start; start2 != this->end; ++start2)
-  // // {
-  // //   std::cout << "=======" << std::endl;
-  // //   std::cout << *start2 << std::endl;
-  // //   std::cout << "=======" << std::endl;
-  // // }
+//   std::list<OperatorControler<IOperand const *> >::const_iterator start2;
+//   this->start = this->stack.begin();
+//   this->end = this->stack.end();
+// for(start2 = this->start; start2 != this->end; ++start2)
+// {
+//   std::cout << "=======" << std::endl;
+//   std::cout << start2->getValue()<< std::endl;
+//   //std::cout << start2-><< std::endl;
+//   std::cout << "=======" << std::endl;
+// }
   // // std::cout << this->getLastAndPop() << '\n';
   // // std::cout << this->getLast() << '\n';
 }
 
-void Executioner::push(double value) {
-  this->stack.push_back(value);
+void Executioner::add() {
+    IOperand const * rhs = this->getLastAndPop();
+    IOperand const * lhs = this->getLastAndPop();
+    IOperand const * created = nullptr;
+    created = *lhs + *rhs;
+    //std::cout << created->toString() << '\n';
+    this->stack.push_back(created);
+}
+void Executioner::push(std::string type, std::string const & value) {
+  IOperand const * test = factory.createOperand(1, value);
+    this->stack.push_back(test);
 }
 
-void Executioner::pop() {
-  if(this->stack.size() == 0) {
-        throw std::logic_error( "list is empty we can\'t pop" );
-  } else {
-    this->stack.pop_back();
-
-  }
-}
+// void Executioner::pop() {
+//   if(this->stack.size() == 0) {
+//         throw std::logic_error( "list is empty we can\'t pop" );
+//   } else {
+//     this->stack.pop_back();
+//
+//   }
+// }
 
 void Executioner::dump() {
-  std::list<double>::const_iterator end = this->stack.end();
+  std::list<IOperand const *>:: iterator end = this->stack.end();
   end--;
   std::cout << "Dump:" << '\n';
   while(end != this->stack.begin())
   {
-    std::cout << *end << std::endl;
+    std::cout << (*end)->toString() << std::endl;
     end--;
   }
-  std::cout << this->stack.front() << '\n';
+  std::cout << this->stack.front()->toString() << '\n';
+ }
+
+IOperand const *Executioner::getLast() {
+  IOperand const * tmp = this->stack.back();
+  return tmp;
 }
 
-double Executioner::getLast() {
-  return this->stack.back();
-}
-
-double Executioner::getLastAndPop() {
-  double tmp = this->stack.back();
+IOperand const  *Executioner::getLastAndPop() {
+  IOperand const * tmp = this->stack.back();
   this->stack.pop_back();
   return tmp;
 }
-//TODO A finir
-void Executioner::print() {
-  std::cout << "Print: " << this->getLast() << '\n';
-}
-void Executioner::exitE() {
-  std::cout << "Bye Bye" << '\n';
-  std::exit(0);
-}
+// //TODO A finir
+// void Executioner::print() {
+//   std::cout << "Print: " << this->getLast() << '\n';
+// }
+// void Executioner::exitE() {
+//   std::cout << "Bye Bye" << '\n';
+//   std::exit(0);
+// }

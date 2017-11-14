@@ -17,7 +17,7 @@ ErrorControler::~ErrorControler(void) {
   return;
 }
 
-int ErrorControler::needToStop(int type, bool isExit, std::string nextValue, int fd) {
+int ErrorControler::needToStop(int type, bool isExit, std::string nextValue, bool fd) {
 
   if (type == 1 && fd != 0) { std::cout << "Syntax error on this instrucion:" << '\n'; return 1; }
   if (isExit && nextValue != "") { std::cout << "Exit must be the last instrucion, this instrucion is after the exit:" << '\n'; return 1; }

@@ -1,0 +1,10 @@
+push int8(1)
+push int8(2)
+add
+push int8(4)
+push int8(5)
+add
+add
+push int8(6)
+dump
+exit

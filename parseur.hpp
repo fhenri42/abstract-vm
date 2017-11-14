@@ -12,7 +12,7 @@ struct VM_List
 {
   std::string info;
   std::string type;
-  double value;
+  std::string value;
 
 };
 

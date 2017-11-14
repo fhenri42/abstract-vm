@@ -1,6 +1,6 @@
 EXEC = abstracVM
 
-SRCC = main.cpp executioner.cpp parseur.cpp errorControler.cpp 
+SRCC = main.cpp executioner.cpp parseur.cpp errorControler.cpp operandFactory.cpp operaterControler.cpp
 
 OFILE = $(SRCC:%.cpp=%.o)
 
@@ -14,7 +14,7 @@ all: main
 	@echo
 
 main: $(OFILE)
-	@clang++ -o $(EXEC) $(FLAG) $(OFILE)
+	@clang++  -o $(EXEC) $(FLAG) $(OFILE)
 
 fast: $(OFILE)
 	@clang++ $(FLAG) -o $(EXEC) $(OFILE)

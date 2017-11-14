@@ -13,7 +13,7 @@ class ErrorControler
     ~ErrorControler(void);                // Destructeur de recopie
 
     ErrorControler &operator=(ErrorControler const & src);  // operator d'affecationt
-    int needToStop(int type, bool isExit, std::string nextValue, int fds);
+    int needToStop(int type, bool isExit, std::string nextValue, bool fd);
     void endofFile(bool isExit);
     bool exit;
 

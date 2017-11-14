@@ -58,14 +58,14 @@ int Parseur::lexeur(std:: string instrucion) {
       }
       tmp.info = info;
       tmp.type = type;
-      tmp.value = std::stod(instrucion);
-      if (tmp.type == "int8" && (tmp.value <=  -128 || tmp.value >= 128 )) { return 3; }
-      if (tmp.type == "int16" && (tmp.value <=  -32768 || tmp.value >= 32767 )) { return 3; }
-      if (tmp.type == "int32" && (tmp.value <=  -2147483648 || tmp.value >= 2147483647 )) { return 3;}
-
+      tmp.value = instrucion;
+    //  tmp.value = std::stod(instrucion);
+      // if (tmp.type == "int8" && (tmp.value <=  -128 || tmp.value >= 128 )) { return 3; }
+      // if (tmp.type == "int16" && (tmp.value <=  -32768 || tmp.value >= 32767 )) { return 3; }
+      // if (tmp.type == "int32" && (tmp.value <=  -2147483648 || tmp.value >= 2147483647 )) { return 3;}
     } else {
       tmp.type = "null";
-      tmp.value = 0;
+      tmp.value = "null";
       tmp.info = instrucion;
     }
 
