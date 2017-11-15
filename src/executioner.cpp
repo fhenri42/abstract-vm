@@ -28,6 +28,7 @@ void Executioner::startVm(Parseur *parse) {
     if (start->info == "exit") { this->exitE(); }
     if (start->info == "push") { this->push(start->type,start->value); }
     // if (start->info == "print") { this->print(); }
+    if (start->info == "assert") {this->assertE(start->type,start->value);}
     if (start->info == "add") {this->add();}
   }
 }
@@ -48,6 +49,24 @@ void Executioner::push(std::string type, std::string const & value) {
   if (type == "float") { enumId = eOperandType::enum_float; }
   if (type == "double") { enumId = eOperandType::enum_double; }
   IOperand const * test = factory.createOperand(enumId, value);
+  this->stack.push_back(test);
+}
+
+void Executioner::assertE(std::string type, std::string const & value) {
+  eOperandType enumId;
+  IOperand const * last =  this->getLast();
+  if (type == "int8") { enumId = eOperandType::enum_int8; }
+  if (type == "int16") { enumId = eOperandType::enum_int16; }
+  if (type == "int32") { enumId = eOperandType::enum_int32; }
+  if (type == "float") { enumId = eOperandType::enum_float; }
+  if (type == "double") { enumId = eOperandType::enum_double; }
+
+  IOperand const * test = factory.createOperand(enumId, value);
+  
+  if (last->toString() != test->toString() || last->getType() != test->getType()) {
+    throw std::logic_error( "Error on the assert");
+    return;
+  }
   this->stack.push_back(test);
 }
 

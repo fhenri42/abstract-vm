@@ -35,6 +35,7 @@ public:
   IOperand const * getLastAndPop(void);
 
   void push(std::string type, std::string const & value);
+  void assertE(std::string type, std::string const & value);
 
 private:
   OperatorFactory factory;

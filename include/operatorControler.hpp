@@ -13,14 +13,17 @@ template <typename T> class OperatorControler : public IOperand {
 		T						value;
 		std::string _value;
 	 	eOperandType _type;
+		long double _max;
+		long double _min;
 	public:
 		OperatorControler(void);
-		OperatorControler(T value, eOperandType type);
+		OperatorControler(T value, eOperandType type, long double max, long double min);
 		OperatorControler(OperatorControler const &src);
 		~OperatorControler(void);
     //TODO Copy
 
 		int						getPrecision( void ) const ;
+		long double getMax(void) const;
 		IOperand const * operator+( IOperand const & rhs ) const;
 		std::string const & toString( void ) const; // String representation of the instance
 		eOperandType getType( void ) const; // Type of the instance
@@ -32,13 +35,15 @@ template<typename T> OperatorControler<T>::OperatorControler( void ) {
 	this->_value = std::to_string(static_cast<T>(0));
 	this->_type = eOperandType::enum_double;
 }
-template<typename T> OperatorControler<T>::OperatorControler( T value, eOperandType type) {
+template<typename T> OperatorControler<T>::OperatorControler( T value, eOperandType type, long double max, long double min) {
 	this->_value = std::to_string(value);
 	this->_type = type;
+	this->_max = max;
 }
-template<typename T> OperatorControler<T>::OperatorControler( OperatorControler const &src) {
-	this->_value = src->value;
-	this->_type = src->type;
+template<typename T> OperatorControler<T>::OperatorControler(OperatorControler const &src) {
+	this->_value = src->_value;
+	this->_type = src->_type;
+	this->_max = src->_max;
 	return this;
 }
 
@@ -54,13 +59,15 @@ template <typename T> IOperand const * OperatorControler<T>::operator+( IOperand
 	OperatorFactory factory;
 	eOperandType newType;
 	ErrorControler error;
-
+	long double max;
 	if(this->_type < rhs.getType()) {
 		newType = rhs.getType();
+		max = rhs.getMax();
 	} else {
 	 newType = this->_type;
+	 max = this->_max;
 	}
-	error.overflow(&rhs, this, newType, "add");
+	error.overflow(&rhs, this, max, "add");
 	IOperand const * ret_val = factory.createOperand(newType, std::to_string(std::stod(this->_value) + std::stod(rhs.toString())));
 	//delete factory;
 	return ret_val;
@@ -73,6 +80,9 @@ template<typename T> eOperandType OperatorControler<T>::getType( void ) const {
 	return this->_type;
 }
 
+template<typename T> long double OperatorControler<T>::getMax( void ) const {
+	return this->_max;
+}
 
 
 #endif

@@ -23,13 +23,12 @@ class ErrorControler : public Parseur
     int needToStopFd(int type, bool isExit, std::string nextValue, bool fd);
     int needToStopCin(int type, bool isExit, std::string nextValue);
     void endofFile(bool isExit);
-    void overflow(IOperand const *operan, IOperand const *operan1, eOperandType newType, std::string opertionType);
-    void underflow(IOperand const *operan, IOperand const *operan1, eOperandType newType, std::string opertionType);    
+    void overflow(IOperand const *operan, IOperand const *operan1, long double max, std::string opertionType);
+    void underflow(IOperand const *operan, IOperand const *operan1, long double min, std::string opertionType);
     bool exit;
-    
+
   private:
     int putError(int line, std::string const & error) const;
-  //  void underflow(IOperand const *operan);
 };
 
 #endif
