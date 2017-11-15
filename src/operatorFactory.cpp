@@ -37,10 +37,10 @@ IOperand const * OperatorFactory::createInt32(std::string const & value) const {
 
 IOperand const * OperatorFactory::createFloat(std::string const & value) const {
 	(void)(value);
-	return new OperatorControler<float>(std::stoi(value), eOperandType::enum_float,std::numeric_limits<float>::max(), std::numeric_limits<float>::lowest(););
+	return new OperatorControler<float>(std::stof(value), eOperandType::enum_float,std::numeric_limits<float>::max(), std::numeric_limits<float>::lowest(););
 }
 
 IOperand const * OperatorFactory::createDouble(std::string const & value) const {
 	(void)(value);
-	return new OperatorControler<double>(std::stoi(value), eOperandType::enum_double, std::numeric_limits<double>::max(),std::numeric_limits<double>::lowest(););
+	return new OperatorControler<double>(std::stod(value), eOperandType::enum_double, std::numeric_limits<double>::max(),std::numeric_limits<double>::lowest(););
 }

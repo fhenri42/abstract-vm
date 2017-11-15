@@ -55,6 +55,7 @@ if(opertionType == "div" && std::stod(operan->toString()) / std::stod(operan1->t
 void ErrorControler::underflow(IOperand const *operan,  IOperand const *operan1, long double min, std::string opertionType) {
 
   long double min;
+
   if (newType == eOperandType::enum_int8) { min = CHAR_MIN; }
   if (newType == eOperandType::enum_int16) { min = SHRT_MIN; }
   if (newType == eOperandType::enum_int32) { min = INT_MIN; }

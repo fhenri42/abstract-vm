@@ -1,8 +1,22 @@
+<<<<<<< HEAD
 push int16(21992)
 push int16(21431)
+=======
+push int32(2147)
+push int32(2147)
+>>>>>>> 826a557d37dd36aeea4ac26ec3c6022cfa0b85ee
 add
 push int32(7)
+div
+push double(4256.24)
+sub
+push double(4654464.646464)
+mod
+mul
 dump
+<<<<<<< HEAD
 assert int32(7)
 dump
+=======
+>>>>>>> 826a557d37dd36aeea4ac26ec3c6022cfa0b85ee
 exit

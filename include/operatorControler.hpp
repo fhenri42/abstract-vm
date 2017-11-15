@@ -20,11 +20,15 @@ template <typename T> class OperatorControler : public IOperand {
 		OperatorControler(T value, eOperandType type, long double max, long double min);
 		OperatorControler(OperatorControler const &src);
 		~OperatorControler(void);
-    //TODO Copy
 
 		int						getPrecision( void ) const ;
 		long double getMax(void) const;
 		IOperand const * operator+( IOperand const & rhs ) const;
+		IOperand const * operator-( IOperand const & rhs ) const;
+		IOperand const * operator*( IOperand const & rhs ) const;
+		IOperand const * operator/( IOperand const & rhs ) const;
+		IOperand const * operator%( IOperand const & rhs ) const;
+
 		std::string const & toString( void ) const; // String representation of the instance
 		eOperandType getType( void ) const; // Type of the instance
 };
@@ -72,6 +76,74 @@ template <typename T> IOperand const * OperatorControler<T>::operator+( IOperand
 	//delete factory;
 	return ret_val;
 }
+
+// template <typename T> IOperand const * OperatorControler<T>::operator*( IOperand const & rhs ) const {
+//
+// 		OperatorFactory factory;
+// 		eOperandType newType;
+// 		ErrorControler error;
+//
+// 		if(this->_type < rhs.getType()) {
+// 			newType = rhs.getType();
+// 		} else {
+// 		 newType = this->_type;
+// 		}
+// 		error.overflow(&rhs, this, newType, "mul");
+// 		IOperand const * ret_val = factory.createOperand(newType, std::to_string(std::stod(this->_value) * std::stod(rhs.toString())));
+// 		//delete factory;
+// 		return ret_val;
+// }
+//
+// template <typename T> IOperand const * OperatorControler<T>::operator-( IOperand const & rhs ) const {
+//
+// 		OperatorFactory factory;
+// 		eOperandType newType;
+// 		ErrorControler error;
+//
+// 		if(this->_type < rhs.getType()) {
+// 			newType = rhs.getType();
+// 		} else {
+// 			newType = this->_type;
+// 		}
+// 		error.overflow(&rhs, this, newType, "sub");
+// 		IOperand const * ret_val = factory.createOperand(newType, std::to_string(std::stod(this->_value) - std::stod(rhs.toString())));
+// 		//delete factory;
+// 		return ret_val;
+// }
+//
+// template <typename T> IOperand const * OperatorControler<T>::operator/( IOperand const & rhs ) const {
+//
+// 		OperatorFactory factory;
+// 		eOperandType newType;
+// 		ErrorControler error;
+//
+// 		if(this->_type < rhs.getType()) {
+// 			newType = rhs.getType();
+// 		} else {
+// 		 newType = this->_type;
+// 		}
+// 		error.overflow(&rhs, this, newType, "div");
+// 		IOperand const * ret_val = factory.createOperand(newType, std::to_string(std::stod(this->_value) / std::stod(rhs.toString())));
+// 		//delete factory;
+// 		return ret_val;
+// }
+//
+// template <typename T> IOperand const * OperatorControler<T>::operator%( IOperand const & rhs ) const {
+//
+// 		OperatorFactory factory;
+// 		eOperandType newType;
+// 		ErrorControler error;
+//
+// 		if(this->_type < rhs.getType()) {
+// 			newType = rhs.getType();
+// 		} else {
+// 		 newType = this->_type;
+// 		}
+// 		error.overflow(&rhs, this, newType, "mod");
+// 		IOperand const * ret_val = factory.createOperand(newType, std::to_string(std::stol(this->_value) % std::stol(rhs.toString())));
+// 		//delete factory;
+// 		return ret_val;
+// }
 
 template <typename T> int OperatorControler<T>::getPrecision( void ) const {
 	return static_cast<int>(this->_type);

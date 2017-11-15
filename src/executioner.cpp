@@ -30,6 +30,7 @@ void Executioner::startVm(Parseur *parse) {
     // if (start->info == "print") { this->print(); }
     if (start->info == "assert") {this->assertE(start->type,start->value);}
     if (start->info == "add") {this->add();}
+    if (start->info == "sub") { this->sub(); }
   }
 }
 
@@ -38,6 +39,14 @@ void Executioner::add() {
   IOperand const * lhs = this->getLastAndPop();
   IOperand const * created = nullptr;
   created = *lhs + *rhs;
+  this->stack.push_back(created);
+}
+
+void Executioner::sub(){
+  IOperand const * rhs = this->getLastAndPop();
+  IOperand const * lhs = this->getLastAndPop();
+  IOperand const * created = nullptr;
+  created = *lhs - *rhs;
   this->stack.push_back(created);
 }
 
