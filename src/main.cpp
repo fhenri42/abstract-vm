@@ -26,7 +26,7 @@ int main (int argc, char **argv) {
     while(!fd.eof()) {
 
 //TODO a verifier de ouf petit fix vite fais
-      getline(fd,value);
+      std::getline(fd,value);
       if (parse->exit) { nextValue = value; }
       if((erreur.needToStopFd(parse->checkeur(value), parse->exit, nextValue, !fd.eof()) == 1 ||  erreur.needToStopFd(parse->lexeur(value), parse->exit, nextValue, !fd.eof()) == 1) && !fd.eof() != 0) {
         std::cout << value << '\n';

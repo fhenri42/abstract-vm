@@ -1,10 +1,10 @@
-push int16(2129)
-push int16(32766)
+push int16(21)
+push int16(32)
 add
 dump
 push float(3.43)
 add
-push double(4.42)
+push double(28.2)
 dump
 push int32(5)
 push int32(6)

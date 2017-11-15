@@ -75,9 +75,13 @@ int Parseur::lexeur(std::string & instrucion) {
       tmp.info = info;
       tmp.type = type;
       tmp.value = instrucion;
-      if (tmp.type == "int8" && (std::stod(instrucion) <=  -128 || std::stod(instrucion) >= 128 )) { return 3; }
-      if (tmp.type == "int16" && (std::stod(instrucion) <=  -32768 || std::stod(instrucion) >= 32767 )) { return 3; }
-      if (tmp.type == "int32" && (std::stod(instrucion) <=  -2147483648 || std::stod(instrucion) >= 2147483647 )) { return 3;}
+      long double value = std::stold(instrucion);
+      if (tmp.type == "int8" && (value <=  CHAR_MIN || value >= CHAR_MAX )) { return 3; }
+      if (tmp.type == "int16" && (value <=  SHRT_MIN || value >= SHRT_MAX)) { return 3; }
+      if (tmp.type == "int32" && (value <=  INT_MIN || value >= INT_MAX )) { return 3;}
+      if (tmp.type == "float" && (value <= std::numeric_limits<float>::lowest() || value >= std::numeric_limits<float>::max() )) { return 3; }
+      if (tmp.type == "double" && (value <= std::numeric_limits<double>::lowest() || value >= std::numeric_limits<double>::max() )) { return 3; }
+
     } else {
       tmp.type = "null";
       tmp.value = "null";

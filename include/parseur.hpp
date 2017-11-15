@@ -7,6 +7,7 @@
 #include <iostream>
 #include <sstream>
 #include <regex>
+#include <limits>
 
 struct VM_List
 {
