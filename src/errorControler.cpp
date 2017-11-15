@@ -44,10 +44,8 @@ int ErrorControler::putError(int line, std::string const & error) const {
 }
 
 void ErrorControler::overflow(IOperand const *operan,  IOperand const *operan1, eOperandType newType, std::string opertionType) {
-
-//std::cout << operan->getType() << '\n';
-//std::cout << operan->getPrecision() << '\n';
 long double max;
+
 if (newType == eOperandType::enum_int8) { max = CHAR_MAX; }
 if (newType == eOperandType::enum_int16) { max = SHRT_MAX; }
 if (newType == eOperandType::enum_int32) { max = INT_MAX; }
@@ -62,10 +60,8 @@ if(opertionType == "div" && std::stod(operan->toString()) / std::stod(operan1->t
 }
 
 void ErrorControler::underflow(IOperand const *operan,  IOperand const *operan1, eOperandType newType, std::string opertionType) {
-  
-  //std::cout << operan->getType() << '\n';
-  //std::cout << operan->getPrecision() << '\n';
   long double min;
+  
   if (newType == eOperandType::enum_int8) { min = CHAR_MIN; }
   if (newType == eOperandType::enum_int16) { min = SHRT_MIN; }
   if (newType == eOperandType::enum_int32) { min = INT_MIN; }

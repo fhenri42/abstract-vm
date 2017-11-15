@@ -26,7 +26,8 @@ public:
   std::list<IOperand const *>::const_iterator start;
   std::list<IOperand const *>::const_iterator end;
   void startVm(Parseur *parse);
-  void add();
+  void add(void);
+  void sub(void);
   void pop(void);
   void dump(void);
   void exitE(void);
