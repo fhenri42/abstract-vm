@@ -37,6 +37,7 @@ void Executioner::add() {
   created = *lhs + *rhs;
   this->stack.push_back(created);
 }
+
 void Executioner::push(std::string type, std::string const & value) {
   IOperand const * test = factory.createOperand(1, value);
   this->stack.push_back(test);

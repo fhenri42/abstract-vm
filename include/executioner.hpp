@@ -8,9 +8,9 @@
 #include <sstream>
 #include <regex>
 #include "parseur.hpp"
-#include "operaterControler.hpp"
+#include "operatorControler.hpp"
 #include "IOperand.hpp"
-#include "operandFactory.hpp"
+#include "operatorFactory.hpp"
 
 class Executioner {
 public:
@@ -36,7 +36,7 @@ public:
   void push(std::string type, std::string const & value);
 
 private:
-  OperandFactory factory;
+  OperatorFactory factory;
 };
 
 #endif

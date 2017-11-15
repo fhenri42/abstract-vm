@@ -1,28 +1,33 @@
 EXEC = abstracVM
 
-SRCC = main.cpp executioner.cpp parseur.cpp errorControler.cpp operandFactory.cpp operaterControler.cpp
+INC	= -I include
 
-OFILE = $(SRCC:%.cpp=%.o)
+SRC = main.cpp executioner.cpp parseur.cpp errorControler.cpp operatorFactory.cpp operatorControler.cpp
 
-FLAG = -Wall -Werror -Wextra -lncurses
+OBJ	= $(SRC:%.cpp=obj/%.o)
 
-all: main
+COMPILE = clang++
+FLAG = # -Wall -Werror -Wextra
 
-%.o: %.c
+all: $(EXEC)
+
+$(EXEC): $(OBJ)
+	$(COMPILE) $(FLAG) -o $@ $(OBJ) $(LIB)
+
+%.o: src/%.cpp
 	@echo -n  $< :
 	@clang++ -o $@ -c $< $(FLAG)
 	@echo
 
-main: $(OFILE)
-	@clang++  -o $(EXEC) $(FLAG) $(OFILE)
-
-fast: $(OFILE)
-	@clang++ $(FLAG) -o $(EXEC) $(OFILE)
+obj/%.o: src/%.cpp
+		$(COMPILE) $(FLAG) $(INC) -o $@ -c $<
 
 clean:
-	@rm -f $(OFILE)
+		rm -fr obj
+		mkdir obj
 
 fclean: clean
-	@rm -f $(OFILE) $(EXEC)
+		rm $(EXEC)
 
 re: fclean all
+#TODO remmaitre le flag est fixe le re

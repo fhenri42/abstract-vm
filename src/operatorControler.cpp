@@ -1,4 +1,4 @@
-#include "operaterControler.hpp"
+#include "operatorControler.hpp"
 
 // template<class T> void OperatorControler<T>::getValue() { return this->value;}
 template<class T> OperatorControler<T>::OperatorControler( void ) { this->_value = std::to_string(static_cast<T>(0)); }
@@ -9,7 +9,7 @@ template<class T> std::string const & OperatorControler<T>::toString( void ) con
 }
 template <typename T> IOperand const * OperatorControler<T>::operator+( IOperand const & rhs ) const {
 
-	OperandFactory factory;
+	OperatorFactory factory;
  IOperand const * ret_val = factory.createOperand(1, std::to_string(std::stod(this->_value) + std::stod(rhs.toString())));
 // delete factory;
  return ret_val;

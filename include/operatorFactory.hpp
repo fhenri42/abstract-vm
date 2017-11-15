@@ -1,16 +1,16 @@
-#ifndef OPERANDFACTORY_HPP
-# define OPERANDFACTORY_HPP
+#ifndef OPERATERFACTORY_HPP
+# define OPERATERFACTORY_HPP
 
 # include "IOperand.hpp"
-# include "operaterControler.hpp"
+# include "operatorControler.hpp"
 
-class OperandFactory {
+class OperatorFactory {
   public:
-      OperandFactory(void);
-      OperandFactory(OperandFactory const &src); // Copy
-      ~OperandFactory(void);                // Destructeur de recopie
+      OperatorFactory(void);
+      OperatorFactory(OperatorFactory const &src); // Copy
+      ~OperatorFactory(void);                // Destructeur de recopie
 
-      OperandFactory &operator=(OperandFactory const & src);  // operator d'affecationt
+      OperatorFactory &operator=(OperatorFactory const & src);  // operator d'affecationt
 
       IOperand const * createOperand(int type, std::string const & value);
       IOperand const * createInt8(std::string const & value) const;
