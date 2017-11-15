@@ -59,10 +59,9 @@ int Parseur::lexeur(std:: string instrucion) {
       tmp.info = info;
       tmp.type = type;
       tmp.value = instrucion;
-    //  tmp.value = std::stod(instrucion);
-      // if (tmp.type == "int8" && (tmp.value <=  -128 || tmp.value >= 128 )) { return 3; }
-      // if (tmp.type == "int16" && (tmp.value <=  -32768 || tmp.value >= 32767 )) { return 3; }
-      // if (tmp.type == "int32" && (tmp.value <=  -2147483648 || tmp.value >= 2147483647 )) { return 3;}
+      if (tmp.type == "int8" && (std::stod(instrucion) <=  -128 || std::stod(instrucion) >= 128 )) { return 3; }
+      if (tmp.type == "int16" && (std::stod(instrucion) <=  -32768 || std::stod(instrucion) >= 32767 )) { return 3; }
+      if (tmp.type == "int32" && (std::stod(instrucion) <=  -2147483648 || std::stod(instrucion) >= 2147483647 )) { return 3;}
     } else {
       tmp.type = "null";
       tmp.value = "null";
@@ -72,41 +71,3 @@ int Parseur::lexeur(std:: string instrucion) {
     this->vmList.push_back(tmp);
   return 0;
 }
-
-//int Parseur::executioner(std::string instrucion) {
-//}
-
-// void Parseur::push(std::string instrucion)
-// {
-//   this->vmList.push_back(instrucion)
-// }
-//
-// vmList *Parseur::pop(std::string *ennemy)
-// {
-//     struct EnnemyList *tmp = NULL;
-//     if (this->ennemyList->ennemy == ennemy)
-//     {
-//         delete this->ennemyList->ennemy;
-//         tmp = this->ennemyList;
-//         this->ennemyList = this->ennemyList->next;
-//         delete tmp;
-//         return this->ennemyList;
-//     }
-//     else
-//     {
-//         while (this->ennemyList->next && this->ennemyList->next->ennemy != ennemy)
-//         {
-//             this->ennemyList = this->ennemyList->next;
-//         }
-//         if (this->ennemyList->next)
-//         {
-//             tmp = this->ennemyList->next->next;
-//             delete this->ennemyList->next->ennemy;
-//             delete this->ennemyList->next;
-//             this->ennemyList->next = tmp;
-//             return tmp;
-//         }
-//     }
-//     this->ennemyDead +=1;
-//     return tmp;
-// }

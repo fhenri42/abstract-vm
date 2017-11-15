@@ -1,4 +1,4 @@
-push int8(1)
+push int8(0)
 push int8(2)
 add
 push int8(4)
