@@ -24,8 +24,20 @@ Parseur::~Parseur(void) {
 //chek value of int
 //CHek double and float no need decimal
 
-int Parseur::checkeur(std::string instrucion) {
+int const Parseur::getIndexLine(void) const {
+  return Parseur::_indexLine;
+}
+
+int Parseur::checkeur(std::string & instrucion) {
+
+  Parseur::_indexLine += 1;
   std::regex elRegex("(push (?![ ]{1,})|pop|dump|assert (?![ ]{1,})|add|sud|mul|div|mod|print|exit)((?=\\n|$)|int8\\([0-9][^)|\\s]*\\)|int16\\([0-9][^)|\\s]*\\)|int32\\([0-9][^)|\\s]*\\)|float\\(\\d+(\\.[0-9]\\d*?\\))?|\\.[0-9]\\d+|double\\(\\d+(\\.[0-9]\\d*?\\))?|\\.[0-9]\\d+)");
+  std::stringstream split;
+  char char_split = ';';
+  split << instrucion;
+
+  std::getline(split, instrucion, char_split);
+  if(instrucion.empty()) { return 0; }  
   if (regex_match(instrucion, elRegex) && instrucion != "exit") {
     return 0;
   } else if (instrucion == "exit") {
@@ -37,8 +49,8 @@ int Parseur::checkeur(std::string instrucion) {
   return 1;
 }
 
-int Parseur::lexeur(std:: string instrucion) {
-
+int Parseur::lexeur(std::string & instrucion) {
+  
   size_t pos = 0;
   std::string info;
   std::string type;
@@ -67,7 +79,9 @@ int Parseur::lexeur(std:: string instrucion) {
       tmp.value = "null";
       tmp.info = instrucion;
     }
-
+    
     this->vmList.push_back(tmp);
   return 0;
 }
+
+int Parseur::_indexLine = 0;

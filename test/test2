@@ -1,10 +1,5 @@
 push int8(0)
-push int8(2)
-add
-push int8(4)
-push int8(5)
-add
-add
-push int8(6)
+push int8(2);salut toi sa va 
+;add
 dump
 exit

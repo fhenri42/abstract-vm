@@ -26,15 +26,17 @@ public:
 
   Parseur &operator=(Parseur const & src);  // operator d'affecationt
 
-  int checkeur(std::string instrucion);
-  int lexeur(std::string instrucion);
+  int checkeur(std::string & instrucion);
+  int lexeur(std::string & instrucion);
   void push(std::string instrucion);
-
+  int const getIndexLine(void) const;
   std::list<VM_List> vmList;
   std::list<VM_List>::const_iterator start;
   std::list<VM_List>::const_iterator end;
   bool exit;
 
+private:
+  static int _indexLine;
 };
 
 #endif

@@ -17,13 +17,26 @@ ErrorControler::~ErrorControler(void) {
   return;
 }
 
-int ErrorControler::needToStop(int type, bool isExit, std::string nextValue, bool fd) {
+int ErrorControler::needToStopFd(int type, bool isExit, std::string nextValue, bool fd) {
 
-  if (type == 1 && fd != 0) { std::cout << "Syntax error on this instrucion:" << '\n'; return 1; }
-  if (isExit && nextValue != "") { std::cout << "Exit must be the last instrucion, this instrucion is after the exit:" << '\n'; return 1; }
-  if (type == 3) { std::cout << "This instrucion is false:" << '\n'; return 1; }
+  if (type == 1 && fd != 0) { return this->putError(this->getIndexLine(), SYNTAX_ERROR); }
+  if (isExit && nextValue != "") { return this->putError(this->getIndexLine(),EXIT_ERROR); }
+  if (type == 3) { return this->putError(this->getIndexLine(),FALSE_INST_ERROR); }
   return 0;
 }
+
+int ErrorControler::needToStopCin(int type, bool isExit, std::string nextValue) {
+  if (type == 1) { return this->putError(this->getIndexLine(),SYNTAX_ERROR); }
+  if (isExit && nextValue != "") { return this->putError(this->getIndexLine(),EXIT_ERROR); }
+  if (type == 3) { return this->putError(this->getIndexLine(),FALSE_INST_ERROR); }
+  return 0;
+}
+
 void ErrorControler::endofFile(bool isExit) {
-  if (isExit) { throw std::logic_error( "You must have an exit at the end of instrucions" ); }
+  if (isExit) { throw std::logic_error(EndOF); }
+}
+
+int const ErrorControler::putError(int line, std::string const & error) const {
+  std::cerr << "Line " << line << ": " << error << std::endl;
+  return 1;
 }

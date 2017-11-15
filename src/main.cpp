@@ -13,21 +13,24 @@ int main (int argc, char **argv) {
   Parseur *parse = new Parseur();
   ErrorControler erreur;
   Executioner exec;
+  std::string value;
+  std::string nextValue = "";
 
   if(argc >= 2) {
 
     try {
-    std::string value;
-    std::string nextValue = "";
     std::ifstream fd;
 
     fd.open(argv[1]);
 
     while(!fd.eof()) {
 
-      getline(fd,value);
+      std::getline(fd,value);
       if (parse->exit) { nextValue = value; }
-      if((erreur.needToStop(parse->checkeur(value), parse->exit, nextValue, fd) == 1 ||  erreur.needToStop(parse->lexeur(value), parse->exit, nextValue, fd) == 1) && fd != 0) {
+      if((erreur.needToStopFd(parse->checkeur(value), parse->exit, nextValue, fd) == 1
+        ||  erreur.needToStopFd(parse->lexeur(value), parse->exit, nextValue, fd) == 1)
+        && fd != 0) {
+
         std::cout << value << '\n';
         fd.close();
         return 0;
@@ -41,8 +44,22 @@ int main (int argc, char **argv) {
       std::cerr << e.what();
   }
   } else {
-    for (std::string line; std::getline(std::cin, line);) {
-      std::cout << line << std::endl;
+    try
+    {
+      for (std::string line; std::getline(std::cin, line);) {
+        if(";;" == line) { break; }
+        if(parse->exit) { nextValue = line; }
+
+        if((erreur.needToStopCin(parse->checkeur(line), parse->exit, nextValue) == 1
+          ||  erreur.needToStopCin(parse->lexeur(line), parse->exit, nextValue) == 1)) {
+
+          std::cout << line << '\n';
+          return 0;
+        }
+    }
+      exec.startVm(parse);
+    } catch (const std::exception & e) {
+      std::cerr << e.what();
     }
   }
   return 0;
