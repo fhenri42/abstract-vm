@@ -6,10 +6,14 @@ Parseur::Parseur(void){
 }
 
 Parseur::Parseur(Parseur const &src) {
+  (void)(src);
+
   return;
 }
 
 Parseur &Parseur::operator=(Parseur const & src) {
+  (void)(src);
+  
   return *this;
 }
 
@@ -24,7 +28,7 @@ Parseur::~Parseur(void) {
 //chek value of int
 //CHek double and float no need decimal
 
-int const Parseur::getIndexLine(void) const {
+int Parseur::getIndexLine(void) const {
   return Parseur::_indexLine;
 }
 

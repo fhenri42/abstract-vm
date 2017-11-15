@@ -4,10 +4,13 @@ Executioner::Executioner(void){
 }
 
 Executioner::Executioner(Executioner const &src) {
+  (void)(src);
+
   return;
 }
 
 Executioner &Executioner::operator=(Executioner const & src) {
+  (void)(src);
   return *this;
 }
 
@@ -26,7 +29,6 @@ void Executioner::startVm(Parseur *parse) {
     if (start->info == "push") { this->push(start->type,start->value); }
     // if (start->info == "print") { this->print(); }
     if (start->info == "add") {this->add();}
-    //  std::cout << start->info << '\n';
   }
 }
 
@@ -39,7 +41,13 @@ void Executioner::add() {
 }
 
 void Executioner::push(std::string type, std::string const & value) {
-  IOperand const * test = factory.createOperand(1, value);
+  eOperandType enumId;
+  if (type == "int8") { enumId = eOperandType::enum_int8; }
+  if (type == "int16") { enumId = eOperandType::enum_int16; }
+  if (type == "int32") { enumId = eOperandType::enum_int32; }
+  if (type == "float") { enumId = eOperandType::enum_float; }
+  if (type == "double") { enumId = eOperandType::enum_double; }
+  IOperand const * test = factory.createOperand(enumId, value);
   this->stack.push_back(test);
 }
 

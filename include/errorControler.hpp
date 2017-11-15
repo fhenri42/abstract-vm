@@ -3,7 +3,8 @@
 
 #include <string>
 #include <iostream>
-#include "./parseur.hpp"
+#include "parseur.hpp"
+#include "IOperand.hpp"
 
 #define EndOF "You must have an exit at the end of instructions"
 #define SYNTAX_ERROR "Syntax error on this instruction: "
@@ -22,10 +23,12 @@ class ErrorControler : public Parseur
     int needToStopFd(int type, bool isExit, std::string nextValue, bool fd);
     int needToStopCin(int type, bool isExit, std::string nextValue);
     void endofFile(bool isExit);
+    void overflow(IOperand const *operan, IOperand const *operan1, eOperandType newType, std::string opertionType);
     bool exit;
     
   private:
-    int const putError(int line, std::string const & error) const;
+    int putError(int line, std::string const & error) const;
+  //  void underflow(IOperand const *operan);
 };
 
 #endif

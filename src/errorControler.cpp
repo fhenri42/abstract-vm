@@ -5,10 +5,12 @@ ErrorControler::ErrorControler(void){
 }
 
 ErrorControler::ErrorControler(ErrorControler const &src) {
+  (void)(src);
   return;
 }
 
 ErrorControler &ErrorControler::operator=(ErrorControler const & src) {
+  (void)(src);
   return *this;
 }
 
@@ -36,7 +38,28 @@ void ErrorControler::endofFile(bool isExit) {
   if (isExit) { throw std::logic_error(EndOF); }
 }
 
-int const ErrorControler::putError(int line, std::string const & error) const {
+int ErrorControler::putError(int line, std::string const & error) const {
   std::cerr << "Line " << line << ": " << error << std::endl;
   return 1;
 }
+
+void ErrorControler::overflow(IOperand const *operan,  IOperand const *operan1, eOperandType newType, std::string opertionType) {
+
+//std::cout << operan->getType() << '\n';
+//std::cout << operan->getPrecision() << '\n';
+std::cout <<"Mdr" << '\n';
+long double max;
+if (newType == eOperandType::enum_int8) { max = 255; }
+if (newType == eOperandType::enum_int16) { max = 32767; }
+if (newType == eOperandType::enum_int32) { max = 2147483647; }
+
+if(opertionType == "add" && std::stod(operan->toString()) + std::stod(operan1->toString()) > max) { throw std::logic_error( "You have an overflow on a ADD");}
+if(opertionType == "mul" && std::stod(operan->toString()) * std::stod(operan1->toString()) > max) { throw std::logic_error( "You have an overflow on a MUL" );}
+if(opertionType == "sub" && std::stod(operan->toString()) - std::stod(operan1->toString()) > max) { throw std::logic_error( "You have an overflow on a SUB" );}
+if(opertionType == "div" && std::stod(operan->toString()) / std::stod(operan1->toString()) > max) { throw std::logic_error( "You have an overflow on a DIV" );}
+
+}
+//
+// void ErrorControler::underflow(IOperand const &operan) {
+//
+// }

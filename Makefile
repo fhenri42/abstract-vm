@@ -1,13 +1,13 @@
-EXEC = abstracVM
+EXEC = bin/abstracVM
 
 INC	= -I include
 
-SRC = main.cpp executioner.cpp parseur.cpp errorControler.cpp operatorFactory.cpp operatorControler.cpp
+SRC = main.cpp executioner.cpp parseur.cpp errorControler.cpp operatorFactory.cpp
 
 OBJ	= $(SRC:%.cpp=obj/%.o)
 
-COMPILE = clang++
-FLAG = # -Wall -Werror -Wextra
+COMPILE = g++ -std=c++11
+FLAG = -Wall -Werror -Wextra
 
 all: $(EXEC)
 
@@ -27,7 +27,8 @@ clean:
 		mkdir obj
 
 fclean: clean
-		rm $(EXEC)
+		rm -fr bin
+		mkdir bin
 
 re: fclean all
 #TODO remmaitre le flag est fixe le re

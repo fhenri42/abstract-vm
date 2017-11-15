@@ -29,7 +29,7 @@ public:
   int checkeur(std::string & instrucion);
   int lexeur(std::string & instrucion);
   void push(std::string instrucion);
-  int const getIndexLine(void) const;
+  int getIndexLine(void) const;
   std::list<VM_List> vmList;
   std::list<VM_List>::const_iterator start;
   std::list<VM_List>::const_iterator end;
