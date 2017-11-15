@@ -81,7 +81,6 @@ int Parseur::lexeur(std::string & instrucion) {
       if (tmp.type == "int32" && (value <=  INT_MIN || value >= INT_MAX )) { return 3;}
       if (tmp.type == "float" && (value <= std::numeric_limits<float>::lowest() || value >= std::numeric_limits<float>::max() )) { return 3; }
       if (tmp.type == "double" && (value <= std::numeric_limits<double>::lowest() || value >= std::numeric_limits<double>::max() )) { return 3; }
-
     } else {
       tmp.type = "null";
       tmp.value = "null";

@@ -24,6 +24,7 @@ class ErrorControler : public Parseur
     int needToStopCin(int type, bool isExit, std::string nextValue);
     void endofFile(bool isExit);
     void overflow(IOperand const *operan, IOperand const *operan1, eOperandType newType, std::string opertionType);
+    void underflow(IOperand const *operan, IOperand const *operan1, eOperandType newType, std::string opertionType);    
     bool exit;
     
   private:
