@@ -6,10 +6,14 @@ Parseur::Parseur(void){
 }
 
 Parseur::Parseur(Parseur const &src) {
+  (void)(src);
+
   return;
 }
 
 Parseur &Parseur::operator=(Parseur const & src) {
+  (void)(src);
+  
   return *this;
 }
 

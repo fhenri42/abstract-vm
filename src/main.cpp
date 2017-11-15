@@ -25,9 +25,10 @@ int main (int argc, char **argv) {
 
     while(!fd.eof()) {
 
+//TODO a verifier de ouf petit fix vite fais
       getline(fd,value);
       if (parse->exit) { nextValue = value; }
-      if((erreur.needToStop(parse->checkeur(value), parse->exit, nextValue, fd) == 1 ||  erreur.needToStop(parse->lexeur(value), parse->exit, nextValue, fd) == 1) && fd != 0) {
+      if((erreur.needToStop(parse->checkeur(value), parse->exit, nextValue, !fd.eof()) == 1 ||  erreur.needToStop(parse->lexeur(value), parse->exit, nextValue, !fd.eof()) == 1) && !fd.eof() != 0) {
         std::cout << value << '\n';
         fd.close();
         return 0;

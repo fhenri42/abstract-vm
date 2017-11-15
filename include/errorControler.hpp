@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include "IOperand.hpp"
 
 class ErrorControler
 {
@@ -16,7 +17,8 @@ class ErrorControler
     int needToStop(int type, bool isExit, std::string nextValue, bool fd);
     void endofFile(bool isExit);
     bool exit;
-
+    void overflow(IOperand const *operan, IOperand const *operan1, eOperandType newType, std::string opertionType);
+  //  void underflow(IOperand const *operan);
 };
 
 #endif
