@@ -8,7 +8,7 @@ push int32(4)
 push int32(54)
 mod
 dump
-push double(42561234)
+push double(4256;1234)
 mul
 dump
 push int32(7)
