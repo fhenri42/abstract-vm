@@ -2,12 +2,13 @@
 
 Parseur::Parseur(void){
   this->exit = false;
+  this->_indexLine = 0;
   return;
 }
 
 Parseur::Parseur(Parseur const &src) {
-  (void)(src);
-
+  this->_indexLine = src._indexLine;
+  this->exit = src.exit;
   return;
 }
 
@@ -23,12 +24,11 @@ Parseur::~Parseur(void) {
 }
 
 int Parseur::getIndexLine(void) const {
-  return Parseur::_indexLine;
+  return this->_indexLine;
 }
 
 int Parseur::checkeur(std::string & instrucion) {
-
-  Parseur::_indexLine += 1;
+  this->_indexLine = this->_indexLine + 1;
   std::regex elRegex("(push (?![ ]{1,})|pop|dump|assert (?![ ]{1,})|add|sub|mul|div|mod|print|pow|exit|while (\\([0-9]*\\)))((?=\\n|$)|int8(\\([0-9]*\\)|\\(-[0-9]*\\))|int16(\\([0-9]*\\)|\\(-[0-9]*\\))|int32(\\([0-9]*\\)|\\(-[0-9]*\\))|float((\\([0-9]*\\)|\\(-[0-9]*\\))|(\\(-\\d+(\\.[0-9]\\d*?\\))|\\.[0-9]\\d+|\\(\\d+(\\.[0-9]\\d*?\\))|\\.[0-9]\\d+))|double((\\([0-9]*\\)|\\(-[0-9]*\\))|(\\(-\\d+(\\.[0-9]\\d*?\\))|\\.[0-9]\\d+|\\(\\d+(\\.[0-9]\\d*?\\))|\\.[0-9]\\d+)))");
   std::stringstream split;
   char char_split = ';';
@@ -85,8 +85,3 @@ int Parseur::lexeur(std::string & instrucion) {
     this->vmList.push_back(tmp);
   return 0;
 }
-
-int Parseur::_indexLine = 0;
-
-
-//(push (?![ ]{1,})|pop|dump|assert (?![ ]{1,})|add|sub|mul|div|mod|print|pow|exit|while (\\([0-9]*\)))((?=\n|$)|int8(\([0-9]*\)|\(-[0-9]*\))|int16(\([0-9]*\)|\(-[0-9]*\))|int32(\([0-9]*\)|\(-[0-9]*\))|float((\([0-9]*\)|\(-[0-9]*\))|(\(-\d+(\.[0-9]\d*?\))?|\.[0-9]\d+|\(\d+(\.[0-9]\d*?\))?|\.[0-9]\d+))|double((\([0-9]*\)|\(-[0-9]*\))|(\(-\d+(\.[0-9]\d*?\))?|\.[0-9]\d+|\(\d+(\.[0-9]\d*?\))?|\.[0-9]\d+)))")

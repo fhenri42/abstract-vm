@@ -4,11 +4,10 @@ pow
 dump
 while (2)
 dump
-push int32()
 push int32(54)
 mod
 dump
-push double(4256;1234)
+push double(42561234)
 mul
 dump
 push int32(7)

@@ -11,7 +11,6 @@
 template <typename T> class OperatorControler : public IOperand {
 
 	private:
-		T						value;
 		std::string _value;
 	 	eOperandType _type;
 		long double _max;

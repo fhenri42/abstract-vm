@@ -10,8 +10,9 @@ class OperatorFactory {
       ~OperatorFactory(void);                // Destructeur de recopie
 
       OperatorFactory &operator=(OperatorFactory const & src);  // operator d'affecationt
-
       IOperand const * createOperand(eOperandType type, std::string const & value);
+
+  private:
       IOperand const * createInt8(std::string const & value) const;
       IOperand const * createInt16( std::string const & value ) const;
       IOperand const * createInt32( std::string const & value ) const;

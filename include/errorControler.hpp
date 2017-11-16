@@ -13,7 +13,7 @@
 #define EXIT_ERROR "Exit must be the last instruction: "
 #define FALSE_INST_ERROR "This instruction is false: "
 
-class ErrorControler : public Parseur
+class ErrorControler
 {
   public:
 
@@ -22,8 +22,8 @@ class ErrorControler : public Parseur
     ~ErrorControler(void);                // Destructeur de recopie
 
     ErrorControler &operator=(ErrorControler const & src);  // operator d'affecationt
-    int needToStopFd(int type, bool isExit, std::string nextValue, bool fd);
-    int needToStopCin(int type, bool isExit, std::string nextValue);
+    int needToStopFd(int type, bool isExit, std::string nextValue, bool fd, int line);
+    int needToStopCin(int type, bool isExit, std::string nextValue, int line);
     void endofFile(bool isExit);
     void overflow(IOperand const *operan, IOperand const *operan1, long double max, std::string opertionType);
     void underflow(IOperand const *operan, IOperand const *operan1, long double min, std::string opertionType);

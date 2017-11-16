@@ -19,18 +19,18 @@ ErrorControler::~ErrorControler(void) {
   return;
 }
 
-int ErrorControler::needToStopFd(int type, bool isExit, std::string nextValue, bool fd) {
+int ErrorControler::needToStopFd(int type, bool isExit, std::string nextValue, bool fd, int line) {
 
-  if (type == 1 && fd != 0) { return this->putError(this->getIndexLine(), SYNTAX_ERROR); }
-  if (isExit && nextValue != "") { return this->putError(this->getIndexLine(),EXIT_ERROR); }
-  if (type == 3) { return this->putError(this->getIndexLine(),FALSE_INST_ERROR); }
+  if (type == 1 && fd != 0) { return this->putError(line, SYNTAX_ERROR); }
+  if (isExit && nextValue != "") { return this->putError(line,EXIT_ERROR); }
+  if (type == 3) { return this->putError(line,FALSE_INST_ERROR); }
   return 0;
 }
 
-int ErrorControler::needToStopCin(int type, bool isExit, std::string nextValue) {
-  if (type == 1) { return this->putError(this->getIndexLine(),SYNTAX_ERROR); }
-  if (isExit && nextValue != "") { return this->putError(this->getIndexLine(),EXIT_ERROR); }
-  if (type == 3) { return this->putError(this->getIndexLine(),FALSE_INST_ERROR); }
+int ErrorControler::needToStopCin(int type, bool isExit, std::string nextValue, int line) {
+  if (type == 1) { return this->putError(line,SYNTAX_ERROR); }
+  if (isExit && nextValue != "") { return this->putError(line,EXIT_ERROR); }
+  if (type == 3) { return this->putError(line,FALSE_INST_ERROR); }
   return 0;
 }
 

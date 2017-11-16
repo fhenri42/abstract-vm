@@ -18,25 +18,27 @@ Executioner::~Executioner(void) {
   return;
 }
 void Executioner::startVm(Parseur *parse) {
-
   std::list<VM_List>::const_iterator start;
   eOperandType enumId = eOperandType::enum_double;
+
   for (start = parse->vmList.begin(); start != parse->end; ++start)
   {
     if (start->type != "null") { enumId = this->getEnumId(start->type); }
-    if (start->info == "pop") { this->pop(); }
-    if (start->info == "dump") { this->dump(); }
-    if (start->info == "exit") { this->exitE(); }
-    if (start->info == "push") { this->push(enumId,start->value); }
-    if (start->info == "print") { this->print(); }
-    if (start->info == "assert") { this->assertE(enumId, start->value); }
+
     if (start->info == "add") {this->add();}
+    if (start->info == "pop") { this->pop(); }
     if (start->info == "sub") { this->sub(); }
     if (start->info == "mul") { this->mul(); }
     if (start->info == "div") { this->div(); }
     if (start->info == "mod") { this->mod(); }
     if (start->info == "pow") {this->power();}
+    if (start->info == "dump") { this->dump(); }
+    if (start->info == "exit") { this->exitE(); }
+    if (start->info == "print") { this->print(); }
+    if (start->info == "push") { this->push(enumId,start->value); }
+    if (start->info == "assert") { this->assertE(enumId, start->value); }
     if (start->info == "while") {this->whileE(this->getLast(),start->value); }
+
   }
 }
 
@@ -52,10 +54,10 @@ eOperandType Executioner::getEnumId(std:: string type) {
 
 void Executioner::add() {
   if (this->stack.size() < 2) { throw std::logic_error( "Ahh nice try" ); }
-  IOperand const * last = this->getLastAndPop();
-  IOperand const * beforeLast = this->getLastAndPop();
+  IOperand const * rhs = this->getLastAndPop();
+  IOperand const * lhs = this->getLastAndPop();
   IOperand const * created = nullptr;
-  created = *beforeLast + *last;
+  created = *lhs + *rhs;
   this->stack.push_back(created);
 }
 
@@ -99,10 +101,10 @@ void Executioner::mod(){
 
 void Executioner::power() {
   if (this->stack.size() < 2) { throw std::logic_error( "Ahh nice try" ); }
-  IOperand const * last = this->getLastAndPop();
-  IOperand const * beforeLast = this->getLastAndPop();
+  IOperand const * rhs = this->getLastAndPop();
+  IOperand const * lhs = this->getLastAndPop();
   IOperand const * created = nullptr;
-  created = *beforeLast ^ *last;
+  created = *lhs ^ *rhs;
   this->stack.push_back(created);
 }
 /* END OPERATION */
@@ -117,15 +119,15 @@ void Executioner::whileE(IOperand const *last, std::string const & value) {
 }
 
 void Executioner::push(eOperandType enumId, std::string const & value) {
-  IOperand const * test = factory.createOperand(enumId, value);
-  this->stack.push_back(test);
+  IOperand const * tmp = factory.createOperand(enumId, value);
+  this->stack.push_back(tmp);
 }
 
 void Executioner::assertE(eOperandType enumId, std::string const & value) {
   IOperand const * last =  this->getLast();
-  IOperand const * test = factory.createOperand(enumId, value);
-  if (last->toString() != test->toString() || last->getType() != test->getType()) { throw std::logic_error("Error on the assert"); }
-  this->stack.push_back(test);
+  IOperand const * tmp = factory.createOperand(enumId, value);
+  if (last->toString() != tmp->toString() || last->getType() != tmp->getType()) { throw std::logic_error("Error on the assert"); }
+  this->stack.push_back(tmp);
 }
 
 void Executioner::pop() {
@@ -138,7 +140,7 @@ void Executioner::dump() {
   std::list<IOperand const *>:: iterator end = this->stack.end();
   end--;
     std::cout << "\033[1;33mDump: \033[0m" << '\n';
-  while(end != this->stack.begin())
+  while (end != this->stack.begin())
   {
     std::cout << "\033[1;36m"<<(*end)->toString() << "\033[0m" << std::endl;
     end--;
@@ -158,7 +160,7 @@ IOperand const  *Executioner::getLastAndPop() {
 }
 
 void Executioner::print() {
-  if(this->stack.size() == 0) { throw std::logic_error(" Ahh nice try "); }
+  if (this->stack.size() == 0) { throw std::logic_error(" Ahh nice try "); }
   IOperand const * lhs = this->getLast();
   if (lhs->getType()!= 0) { throw std::logic_error( "impossible to print this elements" ); };
   std::cout << static_cast<char>(std::stoi(lhs->toString())) << std::endl;

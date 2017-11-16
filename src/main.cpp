@@ -16,26 +16,22 @@ int main (int argc, char **argv) {
   std::string value;
   std::string nextValue = "";
 
-  if(argc >= 2) {
-
+  if (argc >= 2) {
     try {
-    std::ifstream fd;
 
+    std::ifstream fd;
     fd.open(argv[1]);
 
-    while(!fd.eof()) {
+    while (!fd.eof()) {
 
-//TODO a verifier de ouf petit fix vite fais
       std::getline(fd,value);
       if (parse->exit) { nextValue = value; }
-      if((erreur.needToStopFd(parse->checkeur(value), parse->exit, nextValue, !fd.eof()) == 1 ||  erreur.needToStopFd(parse->lexeur(value), parse->exit, nextValue, !fd.eof()) == 1) && !fd.eof() != 0) {
+      if ((erreur.needToStopFd(parse->checkeur(value), parse->exit, nextValue, !fd.eof(), parse->getIndexLine()) == 1 ||  erreur.needToStopFd(parse->lexeur(value), parse->exit, nextValue, !fd.eof(), parse->getIndexLine()) == 1) && !fd.eof() != 0) {
         std::cout <<"\033[1;33m" << value << "\033[0m\n";
         stop = 1;
-      //  fd.close();
-    //    return 0;
       }
     }
-      if( stop == 1) {
+      if (stop == 1) {
         fd.close();
         return 0;
       }
@@ -50,15 +46,12 @@ int main (int argc, char **argv) {
     try
     {
       for (std::string line; std::getline(std::cin, line);) {
-        if(";;" == line) {
+        if (";;" == line) {
           if (!parse->exit) { throw std::logic_error( "you miss exit"); }
           break;
         }
-        if(parse->exit) { nextValue = line; }
-
-        if((erreur.needToStopCin(parse->checkeur(line), parse->exit, nextValue) == 1
-          ||  erreur.needToStopCin(parse->lexeur(line), parse->exit, nextValue) == 1)) {
-
+        if (parse->exit) { nextValue = line; }
+        if ((erreur.needToStopCin(parse->checkeur(line), parse->exit, nextValue, parse->getIndexLine()) == 1 || erreur.needToStopCin(parse->lexeur(line), parse->exit, nextValue, parse->getIndexLine()) == 1)) {
           std::cout << line << '\n';
           return 0;
         }

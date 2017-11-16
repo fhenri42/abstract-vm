@@ -21,26 +21,21 @@ IOperand const * OperatorFactory::createOperand(eOperandType type, std::string c
 }
 
 IOperand const * OperatorFactory::createInt8(std::string const & value) const {
-	(void)(value);
 	return new OperatorControler<int8_t>(std::stoi(value), eOperandType::enum_int8, CHAR_MAX, CHAR_MIN);
 }
 
 IOperand const * OperatorFactory::createInt16(std::string const & value) const {
-	(void)(value);
 	return new OperatorControler<int16_t>(std::stoi(value), eOperandType::enum_int16, SHRT_MAX, SHRT_MIN);
 }
 
 IOperand const * OperatorFactory::createInt32(std::string const & value) const {
-	(void)(value);
 	return new OperatorControler<int32_t>(std::stoi(value), eOperandType::enum_int32, INT_MAX, INT_MIN);
 }
 
 IOperand const * OperatorFactory::createFloat(std::string const & value) const {
-	(void)(value);
 	return new OperatorControler<float>(std::stof(value), eOperandType::enum_float,std::numeric_limits<float>::max(), std::numeric_limits<float>::lowest());
 }
 
 IOperand const * OperatorFactory::createDouble(std::string const & value) const {
-	(void)(value);
 	return new OperatorControler<double>(std::stod(value), eOperandType::enum_double, std::numeric_limits<double>::max(),std::numeric_limits<double>::lowest());
 }

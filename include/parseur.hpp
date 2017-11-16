@@ -14,12 +14,14 @@ struct VM_List
   std::string info;
   std::string type;
   std::string value;
-
 };
 
 class Parseur
 {
 public:
+  std::list<VM_List> vmList;
+  std::list<VM_List>::const_iterator start;
+  std::list<VM_List>::const_iterator end;
 
   Parseur(void);
   Parseur(Parseur const &src); // Copy
@@ -31,13 +33,10 @@ public:
   int lexeur(std::string & instrucion);
   void push(std::string instrucion);
   int getIndexLine(void) const;
-  std::list<VM_List> vmList;
-  std::list<VM_List>::const_iterator start;
-  std::list<VM_List>::const_iterator end;
   bool exit;
 
 private:
-  static int _indexLine;
+  int _indexLine;
 };
 
 #endif
