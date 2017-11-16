@@ -5,6 +5,7 @@
 #include "IOperand.hpp"
 #include "operatorFactory.hpp"
 #include "errorControler.hpp"
+#include <math.h>
 
 
 template <typename T> class OperatorControler : public IOperand {
@@ -15,7 +16,7 @@ template <typename T> class OperatorControler : public IOperand {
 	 	eOperandType _type;
 		long double _max;
 		long double _min;
-		
+
 	public:
 		OperatorControler(void);
 		OperatorControler(T value, eOperandType type, long double max, long double min);
@@ -30,6 +31,7 @@ template <typename T> class OperatorControler : public IOperand {
 		IOperand const * operator*( IOperand const & rhs ) const;
 		IOperand const * operator/( IOperand const & rhs ) const;
 		IOperand const * operator%( IOperand const & rhs ) const;
+		IOperand const * operator^( IOperand const & rhs ) const;
 
 		std::string const & toString( void ) const; // String representation of the instance
 		eOperandType getType( void ) const; // Type of the instance
@@ -83,7 +85,7 @@ template <typename T> IOperand const * OperatorControler<T>::operator-( IOperand
 	ErrorControler error;
 	IOperand const * retVal = NULL;
 
-	if(this->getPrecision() < rhs.getPrecision()) {
+	if (this->getPrecision() < rhs.getPrecision()) {
 		error.overflow(&rhs, this, rhs.getMax(), "sub");
 		error.underflow(&rhs, this, rhs.getMin(), "sub");
 		retVal =factory.createOperand(rhs.getType(), std::to_string(std::stod(this->_value) - std::stod(rhs.toString())));
@@ -101,7 +103,7 @@ template <typename T> IOperand const * OperatorControler<T>::operator*( IOperand
 	ErrorControler error;
 	IOperand const * retVal = NULL;
 
-	if(this->getPrecision() < rhs.getPrecision()) {
+	if (this->getPrecision() < rhs.getPrecision()) {
 		error.overflow(&rhs, this, rhs.getMax(), "mul");
 		error.underflow(&rhs, this, rhs.getMin(), "mul");
 		retVal = factory.createOperand(rhs.getType(), std::to_string(std::stod(this->_value) * std::stod(rhs.toString())));
@@ -145,6 +147,24 @@ template <typename T> IOperand const * OperatorControler<T>::operator%( IOperand
 		error.overflow(&rhs, this, this->_max, "mod");
 		error.underflow(&rhs, this, this->_min, "mod");
 		retVal = factory.createOperand(this->_type, std::to_string(std::stoi(this->_value) % std::stoi(rhs.toString())));
+	}
+	return retVal;
+}
+
+template <typename T> IOperand const * OperatorControler<T>::operator^( IOperand const & rhs ) const {
+
+	OperatorFactory factory;
+	ErrorControler error;
+	IOperand const * retVal = NULL;
+
+	if(this->getPrecision() < rhs.getPrecision()) {
+		error.overflow(&rhs, this, rhs.getMax(), "pow");
+		error.underflow(&rhs, this, rhs.getMin(), "pow");
+		retVal =factory.createOperand(rhs.getType(), std::to_string(pow(std::stod(this->_value),std::stod(rhs.toString()))));
+	} else {
+		error.overflow(&rhs, this, this->_max, "pow");
+		error.underflow(&rhs, this, this->_min, "pow");
+		retVal = factory.createOperand(this->_type, std::to_string(pow(std::stod(this->_value),std::stod(rhs.toString()))));
 	}
 	return retVal;
 }

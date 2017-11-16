@@ -5,6 +5,8 @@
 #include <iostream>
 #include "parseur.hpp"
 #include "IOperand.hpp"
+#include <math.h>
+
 
 #define EndOF "You must have an exit at the end of instructions"
 #define SYNTAX_ERROR "Syntax error on this instruction: "

@@ -12,6 +12,7 @@ int main (int argc, char **argv) {
   Parseur *parse = new Parseur();
   ErrorControler erreur;
   Executioner exec;
+  int stop = 0;
   std::string value;
   std::string nextValue = "";
 
@@ -28,11 +29,16 @@ int main (int argc, char **argv) {
       std::getline(fd,value);
       if (parse->exit) { nextValue = value; }
       if((erreur.needToStopFd(parse->checkeur(value), parse->exit, nextValue, !fd.eof()) == 1 ||  erreur.needToStopFd(parse->lexeur(value), parse->exit, nextValue, !fd.eof()) == 1) && !fd.eof() != 0) {
-        std::cout << value << '\n';
+        std::cout <<"\033[1;33m" << value << "\033[0m\n";
+        stop = 1;
+      //  fd.close();
+    //    return 0;
+      }
+    }
+      if( stop == 1) {
         fd.close();
         return 0;
       }
-    }
     erreur.endofFile(!parse->exit);
 
       fd.close();

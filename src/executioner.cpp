@@ -35,6 +35,8 @@ void Executioner::startVm(Parseur *parse) {
     if (start->info == "mul") { this->mul(); }
     if (start->info == "div") { this->div(); }
     if (start->info == "mod") { this->mod(); }
+    if (start->info == "pow") {this->power();}
+    if (start->info == "while") {this->whileE(this->getLast(),start->value); }
   }
 }
 
@@ -86,7 +88,7 @@ void Executioner::div(){
 }
 
 void Executioner::mod(){
-  if (this->stack.size() < 2) { throw std::logic_error( "Ahh nice try" ); }  
+  if (this->stack.size() < 2) { throw std::logic_error( "Ahh nice try" ); }
   IOperand const * rhs = this->getLastAndPop();
   IOperand const * lhs = this->getLastAndPop();
   if (rhs->getPrecision() >= 3 && lhs->getPrecision() >= 3) { throw std::logic_error( "You can only modulo an integer" ); }
@@ -95,7 +97,25 @@ void Executioner::mod(){
   this->stack.push_back(created);
 }
 
+void Executioner::power() {
+  if (this->stack.size() < 2) { throw std::logic_error( "Ahh nice try" ); }
+  IOperand const * last = this->getLastAndPop();
+  IOperand const * beforeLast = this->getLastAndPop();
+  IOperand const * created = nullptr;
+  created = *beforeLast ^ *last;
+  this->stack.push_back(created);
+}
 /* END OPERATION */
+
+
+void Executioner::whileE(IOperand const *last, std::string const & value) {
+  int i = 0;
+  while (i < stod(value)) {
+    this->stack.push_back(last);
+    i++;
+  }
+}
+
 void Executioner::push(eOperandType enumId, std::string const & value) {
   IOperand const * test = factory.createOperand(enumId, value);
   this->stack.push_back(test);
@@ -117,13 +137,13 @@ void Executioner::dump() {
 
   std::list<IOperand const *>:: iterator end = this->stack.end();
   end--;
-  std::cout << "Dump:" << std::endl;
+    std::cout << "\033[1;33mDump: \033[0m" << '\n';
   while(end != this->stack.begin())
   {
-    std::cout << (*end)->toString() << std::endl;
+    std::cout << "\033[1;36m"<<(*end)->toString() << "\033[0m" << std::endl;
     end--;
   }
-  std::cout << this->stack.front()->toString() << std::endl;
+  std::cout << "\033[1;36m" << this->stack.front()->toString() << "\033[0m" << '\n';
 }
 
 IOperand const *Executioner::getLast() {
@@ -145,6 +165,6 @@ void Executioner::print() {
 }
 
 void Executioner::exitE() {
-  std::cout << "Bye Bye" << std::endl;
+  std::cout << "\033[1;32mBye Bye \033[0m" << std::endl;
   std::exit(0);
 }

@@ -35,6 +35,7 @@ public:
   void push(eOperandType enumId, std::string const & value);
   void assertE(eOperandType enumId, std::string const & value);
   void add(void);
+  void power(void);
   void sub(void);
   void mul(void);
   void div(void);
@@ -43,6 +44,7 @@ public:
   void pop(void);
   void dump(void);
   void exitE(void);
+  void whileE(IOperand const *last, std::string const & value);
   OperatorFactory factory;
 };
 

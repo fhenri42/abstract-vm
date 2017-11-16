@@ -1,6 +1,8 @@
-push int8(-4)
-push int32(214297)
-add
+push int8(2)
+push int32(16)
+pow
+dump
+while (2)
 dump
 push int32(4)
 push int32(54)
