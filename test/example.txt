@@ -1,17 +1,12 @@
 push int8(100)
-print
 push int32(16)
-pow
 dump
 while (2)
 dump
-<<<<<<< Updated upstream
 push int32(54)
 mod
 dump
-=======
 push int32(-1)
-
 add
 add
 print
@@ -31,7 +26,6 @@ print
 add
 dump
 print
->>>>>>> Stashed changes
 push double(42561234)
 mul
 print
