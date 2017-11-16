@@ -39,7 +39,7 @@ public:
   void mul(void);
   void div(void);
   void mod(void);
-  // void print(void);
+  void print(void);
   void pop(void);
   void dump(void);
   void exitE(void);

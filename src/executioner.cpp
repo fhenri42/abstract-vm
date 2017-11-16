@@ -28,7 +28,7 @@ void Executioner::startVm(Parseur *parse) {
     if (start->info == "dump") { this->dump(); }
     if (start->info == "exit") { this->exitE(); }
     if (start->info == "push") { this->push(enumId,start->value); }
-    // if (start->info == "print") { this->print(); }
+    if (start->info == "print") { this->print(); }
     if (start->info == "assert") { this->assertE(enumId, start->value); }
     if (start->info == "add") {this->add();}
     if (start->info == "sub") { this->sub(); }
@@ -86,6 +86,7 @@ void Executioner::div(){
 }
 
 void Executioner::mod(){
+  if (this->stack.size() < 2) { throw std::logic_error( "Ahh nice try" ); }  
   IOperand const * rhs = this->getLastAndPop();
   IOperand const * lhs = this->getLastAndPop();
   if (rhs->getPrecision() >= 3 && lhs->getPrecision() >= 3) { throw std::logic_error( "You can only modulo an integer" ); }
@@ -116,13 +117,13 @@ void Executioner::dump() {
 
   std::list<IOperand const *>:: iterator end = this->stack.end();
   end--;
-  std::cout << "Dump:" << '\n';
+  std::cout << "Dump:" << std::endl;
   while(end != this->stack.begin())
   {
     std::cout << (*end)->toString() << std::endl;
     end--;
   }
-  std::cout << this->stack.front()->toString() << '\n';
+  std::cout << this->stack.front()->toString() << std::endl;
 }
 
 IOperand const *Executioner::getLast() {
@@ -135,11 +136,15 @@ IOperand const  *Executioner::getLastAndPop() {
   this->stack.pop_back();
   return tmp;
 }
-// //TODO A finir
-// void Executioner::print() {
-//   std::cout << "Print: " << this->getLast() << '\n';
-// }
+
+void Executioner::print() {
+  if(this->stack.size() == 0) { throw std::logic_error(" Ahh nice try "); }
+  IOperand const * lhs = this->getLast();
+  if (lhs->getType()!= 0) { throw std::logic_error( "impossible to print this elements" ); };
+  std::cout << static_cast<char>(std::stoi(lhs->toString())) << std::endl;
+}
+
 void Executioner::exitE() {
-  std::cout << "Bye Bye" << '\n';
+  std::cout << "Bye Bye" << std::endl;
   std::exit(0);
 }

@@ -22,12 +22,6 @@ Parseur::~Parseur(void) {
    return;
 }
 
-//TODO
-//Commentaire
-//chek exit is  the last one
-//chek value of int
-//CHek double and float no need decimal
-
 int Parseur::getIndexLine(void) const {
   return Parseur::_indexLine;
 }
