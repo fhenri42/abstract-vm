@@ -69,7 +69,7 @@ int Parseur::lexeur(std::string & instrucion) {
       tmp.info = info;
       tmp.type = type;
       tmp.value = instrucion;
-      if (instrucion.empty()){ throw std::logic_error("This instruction is false: value empty");}
+      if (instrucion.empty()){ throw std::logic_error("\033[1;31mThis instruction is false: value empty \033[0m");}
       long double value = std::stold(instrucion);
       if (tmp.type == "int8" && (value <=  CHAR_MIN || value >= CHAR_MAX )) { return 3; }
       if (tmp.type == "int16" && (value <=  SHRT_MIN || value >= SHRT_MAX)) { return 3; }

@@ -21,7 +21,7 @@ int main (int argc, char **argv) {
 
     std::ifstream fd;
     fd.open(argv[1]);
-
+    if(!fd.is_open()) { std::cout <<"\033[1;33mWow !!! we can't open this type of file !!\033[0m\n"; return 0; }
     while (!fd.eof()) {
 
       std::getline(fd,value);
