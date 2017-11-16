@@ -1,4 +1,4 @@
-push int32(2147)
+push int8(-4)
 push int32(214297)
 add
 dump
@@ -6,7 +6,7 @@ push int32(4)
 push int32(54)
 mod
 dump
-push double(4256.1234)
+push double(42561234)
 mul
 dump
 push int32(7)
