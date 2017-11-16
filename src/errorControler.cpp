@@ -45,25 +45,17 @@ int ErrorControler::putError(int line, std::string const & error) const {
 
 void ErrorControler::overflow(IOperand const *operan,  IOperand const *operan1, long double max, std::string opertionType) {
 
-if(opertionType == "add" && std::stod(operan->toString()) + std::stod(operan1->toString()) > max) { throw std::logic_error( "You have an overflow on a ADD");}
-if(opertionType == "mul" && std::stod(operan->toString()) * std::stod(operan1->toString()) > max) { throw std::logic_error( "You have an overflow on a MUL" );}
-if(opertionType == "sub" && std::stod(operan->toString()) - std::stod(operan1->toString()) > max) { throw std::logic_error( "You have an overflow on a SUB" );}
-if(opertionType == "div" && std::stod(operan->toString()) / std::stod(operan1->toString()) > max) { throw std::logic_error( "You have an overflow on a DIV" );}
+  if(opertionType == "add" && std::stod(operan->toString()) + std::stod(operan1->toString()) > max) { throw std::logic_error( "You have an overflow on a ADD");}
+  if(opertionType == "mul" && std::stod(operan->toString()) * std::stod(operan1->toString()) > max) { throw std::logic_error( "You have an overflow on a MUL" );}
+  if(opertionType == "sub" && std::stod(operan->toString()) - std::stod(operan1->toString()) > max) { throw std::logic_error( "You have an overflow on a SUB" );}
+  if(opertionType == "div" && std::stod(operan->toString()) / std::stod(operan1->toString()) > max) { throw std::logic_error( "You have an overflow on a DIV" );}
 
 }
 
 void ErrorControler::underflow(IOperand const *operan,  IOperand const *operan1, long double min, std::string opertionType) {
 
-  long double min;
-
-  if (newType == eOperandType::enum_int8) { min = CHAR_MIN; }
-  if (newType == eOperandType::enum_int16) { min = SHRT_MIN; }
-  if (newType == eOperandType::enum_int32) { min = INT_MIN; }
-  if (newType == eOperandType::enum_float) { min = std::numeric_limits<float>::lowest(); }
-  if (newType == eOperandType::enum_double) { min = std::numeric_limits<double>::lowest(); }
-
-  if(opertionType == "add" && std::stod(operan->toString()) + std::stod(operan1->toString()) > min) { throw std::logic_error( "You have an underflow on a ADD");}
-  if(opertionType == "mul" && std::stod(operan->toString()) * std::stod(operan1->toString()) > min) { throw std::logic_error( "You have an underflow on a MUL" );}
-  if(opertionType == "sub" && std::stod(operan->toString()) - std::stod(operan1->toString()) > min) { throw std::logic_error( "You have an underflow on a SUB" );}
-  if(opertionType == "div" && std::stod(operan->toString()) / std::stod(operan1->toString()) > min) { throw std::logic_error( "You have an underflow on a DIV" );}
+  if(opertionType == "add" && std::stod(operan->toString()) + std::stod(operan1->toString()) < min) { throw std::logic_error( "You have an underflow on a ADD");}
+  if(opertionType == "mul" && std::stod(operan->toString()) * std::stod(operan1->toString()) < min) { throw std::logic_error( "You have an underflow on a MUL" );}
+  if(opertionType == "sub" && std::stod(operan->toString()) - std::stod(operan1->toString()) < min) { throw std::logic_error( "You have an underflow on a SUB" );}
+  if(opertionType == "div" && std::stod(operan->toString()) / std::stod(operan1->toString()) < min) { throw std::logic_error( "You have an underflow on a DIV" );}
 }

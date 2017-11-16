@@ -22,23 +22,27 @@ public:
 
   Executioner &operator=(Executioner const & src);  // operator d'affecationt
 
+  void startVm(Parseur *parse);
+
+ private:
   std::list<IOperand const *>stack;
   std::list<IOperand const *>::const_iterator start;
   std::list<IOperand const *>::const_iterator end;
-  void startVm(Parseur *parse);
+
+  eOperandType getEnumId(std:: string type);
+  IOperand const * getLast(void);
+  IOperand const * getLastAndPop(void);
+  void push(eOperandType enumId, std::string const & value);
+  void assertE(eOperandType enumId, std::string const & value);
   void add(void);
   void sub(void);
+  void mul(void);
+  void div(void);
+  void mod(void);
+  // void print(void);
   void pop(void);
   void dump(void);
   void exitE(void);
-  // void print(void);
-  IOperand const * getLast(void);
-  IOperand const * getLastAndPop(void);
-
-  void push(std::string type, std::string const & value);
-  void assertE(std::string type, std::string const & value);
-
-private:
   OperatorFactory factory;
 };
 
