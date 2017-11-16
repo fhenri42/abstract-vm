@@ -162,8 +162,10 @@ IOperand const  *Executioner::getLastAndPop() {
 void Executioner::print() {
   if (this->stack.size() == 0) { throw std::logic_error(" Ahh nice try "); }
   IOperand const * lhs = this->getLast();
-  if (lhs->getType()!= 0) { throw std::logic_error( "impossible to print this elements" ); };
-  std::cout << static_cast<char>(std::stoi(lhs->toString())) << std::endl;
+  if (lhs->getType()!= 0) { throw std::logic_error("impossible to print this elements"); };
+  int value = std::stoi(lhs->toString());
+  if (value < 0) { throw std::logic_error("impossible to print this negatif elements"); }
+  std::cout << static_cast<char>(value) << std::endl;
 }
 
 void Executioner::exitE() {
