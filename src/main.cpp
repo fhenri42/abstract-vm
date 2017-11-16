@@ -50,7 +50,10 @@ int main (int argc, char **argv) {
     try
     {
       for (std::string line; std::getline(std::cin, line);) {
-        if(";;" == line) { break; }
+        if(";;" == line) {
+          if (!parse->exit) { throw std::logic_error( "you miss exit"); }
+          break;
+        }
         if(parse->exit) { nextValue = line; }
 
         if((erreur.needToStopCin(parse->checkeur(line), parse->exit, nextValue) == 1

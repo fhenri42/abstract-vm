@@ -1,9 +1,9 @@
-oesuthosuhs
 push int32(1)
-push int8(2)
-add
+push int8(2); ououou
+add; 
 dump
-push float(3.43)
+;sth nsotuho
+push float(34;3)
 add
 push double(4;42)
 dump

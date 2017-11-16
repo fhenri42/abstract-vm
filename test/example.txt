@@ -4,7 +4,7 @@ pow
 dump
 while (2)
 dump
-push int32(4)
+push int32()
 push int32(54)
 mod
 dump
