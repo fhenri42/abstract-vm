@@ -1,6 +1,15 @@
-push int32(42)
-push int32(33)
+push int32(2)
+push int32(2)
 add
+while (5)
+dump
+pow
+push int8(4)
+dump
+sub
+dump
+while (7)
+dump
 push float(44.55)
 mul
 push double(42.42)

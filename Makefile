@@ -31,4 +31,3 @@ fclean: clean
 		mkdir bin
 
 re: fclean all
-#TODO remmaitre le flag est fixe le re
