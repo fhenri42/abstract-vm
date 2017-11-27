@@ -1,4 +1,4 @@
-EXEC = bin/abstracVM
+EXEC = bin/avm
 
 INC	= -I include
 
@@ -25,9 +25,11 @@ obj/%.o: src/%.cpp
 clean:
 		rm -fr obj
 		mkdir obj
+		touch obj/.gitkeep
 
 fclean: clean
 		rm -fr bin
 		mkdir bin
+		touch bin/.gitkeep
 
 re: fclean all

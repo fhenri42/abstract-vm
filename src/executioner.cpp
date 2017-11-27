@@ -53,7 +53,7 @@ eOperandType Executioner::getEnumId(std:: string type) {
 /* OPERATION  */
 
 void Executioner::add() {
-  if (this->stack.size() < 2) { throw std::logic_error( "Ahh nice try" ); }
+  if (this->stack.size() < 2) { throw std::logic_error( "You need at least 2 elements on your stack to do this operation" ); }
   IOperand const * rhs = this->getLastAndPop();
   IOperand const * lhs = this->getLastAndPop();
   IOperand const * created = nullptr;
@@ -62,7 +62,7 @@ void Executioner::add() {
 }
 
 void Executioner::sub(){
-  if (this->stack.size() < 2) { throw std::logic_error( "Ahh nice try" ); }
+  if (this->stack.size() < 2) { throw std::logic_error( "You need at least 2 elements on your stack to do this operation" ); }
   IOperand const * rhs = this->getLastAndPop();
   IOperand const * lhs = this->getLastAndPop();
   IOperand const * created = nullptr;
@@ -71,7 +71,7 @@ void Executioner::sub(){
 }
 
 void Executioner::mul(){
-  if (this->stack.size() < 2) { throw std::logic_error( "Ahh nice try" ); }
+  if (this->stack.size() < 2) { throw std::logic_error( "You need at least 2 elements on your stack to do this operation" ); }
   IOperand const * rhs = this->getLastAndPop();
   IOperand const * lhs = this->getLastAndPop();
   IOperand const * created = nullptr;
@@ -80,17 +80,24 @@ void Executioner::mul(){
 }
 
 void Executioner::div(){
-  if (this->stack.size() < 2) { throw std::logic_error( "Ahh nice try" ); }
+
+  if (this->stack.size() < 2) { throw std::logic_error( "You need at least 2 elements on your stack to do this operation" ); }
   IOperand const * rhs = this->getLastAndPop();
   IOperand const * lhs = this->getLastAndPop();
-  if (rhs->toString() == "0") { throw std::logic_error( "Ahh nice try you c\'ant divide by 0" ); }
+  if (rhs->toString() == "0") { throw std::logic_error( "You can't divide by 0" ); }
+  if (lhs->toString() == "0") {
+    OperatorFactory factory;
+    this->stack.push_back(factory.createOperand(eOperandType::enum_int8, "0"));
+    return;
+  }
   IOperand const * created = nullptr;
   created = *lhs / *rhs;
+
   this->stack.push_back(created);
 }
 
 void Executioner::mod(){
-  if (this->stack.size() < 2) { throw std::logic_error( "Ahh nice try" ); }
+  if (this->stack.size() < 2) { throw std::logic_error( "You need at least 2 elements on your stack to do this operation" ); }
   IOperand const * rhs = this->getLastAndPop();
   IOperand const * lhs = this->getLastAndPop();
   if (rhs->getPrecision() >= 3 && lhs->getPrecision() >= 3) { throw std::logic_error( "You can only modulo an integer" ); }
@@ -100,7 +107,7 @@ void Executioner::mod(){
 }
 
 void Executioner::power() {
-  if (this->stack.size() < 2) { throw std::logic_error( "Ahh nice try" ); }
+  if (this->stack.size() < 2) { throw std::logic_error( "You need at least 2 elements on your stack to do this operation" ); }
   IOperand const * rhs = this->getLastAndPop();
   IOperand const * lhs = this->getLastAndPop();
   IOperand const * created = nullptr;
@@ -111,6 +118,7 @@ void Executioner::power() {
 
 
 void Executioner::whileE(IOperand const *last, std::string const & value) {
+  if (this->stack.size() == 0) { throw std::logic_error("You can't do that on a empty stack"); }
   int i = 0;
   while (i < stod(value)) {
     this->stack.push_back(last);
@@ -124,6 +132,8 @@ void Executioner::push(eOperandType enumId, std::string const & value) {
 }
 
 void Executioner::assertE(eOperandType enumId, std::string const & value) {
+  if (this->stack.size() == 0) { throw std::logic_error("You can't do that on a empty stack"); }
+
   IOperand const * last =  this->getLast();
   IOperand const * tmp = factory.createOperand(enumId, value);
   if (last->toString() != tmp->toString() || last->getType() != tmp->getType()) { throw std::logic_error("Error on the assert"); }
@@ -136,6 +146,8 @@ void Executioner::pop() {
 }
 
 void Executioner::dump() {
+
+  if (this->stack.size() == 0) { throw std::logic_error("You can't do that on a empty stack"); }
 
   std::list<IOperand const *>:: iterator end = this->stack.end();
   end--;
@@ -160,7 +172,7 @@ IOperand const  *Executioner::getLastAndPop() {
 }
 
 void Executioner::print() {
-  if (this->stack.size() == 0) { throw std::logic_error(" Ahh nice try "); }
+  if (this->stack.size() == 0) { throw std::logic_error("You can't do that on a empty stack"); }
   IOperand const * lhs = this->getLast();
   if (lhs->getType()!= 0) { throw std::logic_error("impossible to print this elements"); };
   int value = std::stoi(lhs->toString());

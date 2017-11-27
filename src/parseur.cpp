@@ -71,11 +71,11 @@ int Parseur::lexeur(std::string & instrucion) {
       tmp.value = instrucion;
       if (instrucion.empty()){ throw std::logic_error("\033[1;31mThis instruction is false: value empty \033[0m");}
       long double value = std::stold(instrucion);
-      if (tmp.type == "int8" && (value <=  CHAR_MIN || value >= CHAR_MAX )) { return 3; }
-      if (tmp.type == "int16" && (value <=  SHRT_MIN || value >= SHRT_MAX)) { return 3; }
-      if (tmp.type == "int32" && (value <=  INT_MIN || value >= INT_MAX )) { return 3;}
-      if (tmp.type == "float" && (value <= std::numeric_limits<float>::lowest() || value >= std::numeric_limits<float>::max() )) { return 3; }
-      if (tmp.type == "double" && (value <= std::numeric_limits<double>::lowest() || value >= std::numeric_limits<double>::max() )) { return 3; }
+      if (tmp.type == "int8" && (value <  CHAR_MIN || value > CHAR_MAX)) { return 3; }
+      if (tmp.type == "int16" && (value <  SHRT_MIN || value > SHRT_MAX)) { return 3; }
+      if (tmp.type == "int32" && (value <  INT_MIN || value > INT_MAX )) { return 3; }
+      if (tmp.type == "float" && (value < std::numeric_limits<float>::lowest() || value > std::numeric_limits<float>::max() )) { return 3; }
+      if (tmp.type == "double" && (value < std::numeric_limits<double>::lowest() || value > std::numeric_limits<double>::max() )) { return 3; }
     } else {
       tmp.type = "null";
       tmp.value = "null";

@@ -25,12 +25,12 @@ template <typename T> class OperatorControler : public IOperand {
 		int						getPrecision( void ) const ;
 		long double getMax(void) const;
 		long double getMin(void) const;
-		IOperand const * operator+( IOperand const & rhs ) const;
-		IOperand const * operator-( IOperand const & rhs ) const;
-		IOperand const * operator*( IOperand const & rhs ) const;
-		IOperand const * operator/( IOperand const & rhs ) const;
-		IOperand const * operator%( IOperand const & rhs ) const;
-		IOperand const * operator^( IOperand const & rhs ) const;
+		IOperand const * operator+(IOperand const & rhs) const;
+		IOperand const * operator-(IOperand const & rhs) const;
+		IOperand const * operator*(IOperand const & rhs) const;
+		IOperand const * operator/(IOperand const & rhs) const;
+		IOperand const * operator%(IOperand const & rhs) const;
+		IOperand const * operator^(IOperand const & rhs) const;
 
 		std::string const & toString( void ) const; // String representation of the instance
 		eOperandType getType( void ) const; // Type of the instance
@@ -38,11 +38,11 @@ template <typename T> class OperatorControler : public IOperand {
 
 
 
-template<typename T> OperatorControler<T>::OperatorControler( void ) {
+template<typename T> OperatorControler<T>::OperatorControler(void) {
 	this->_value = std::to_string(static_cast<T>(0));
 	this->_type = eOperandType::enum_double;
 }
-template<typename T> OperatorControler<T>::OperatorControler( T value, eOperandType type, long double max, long double min) {
+template<typename T> OperatorControler<T>::OperatorControler(T value, eOperandType type, long double max, long double min) {
 	this->_value = std::to_string(value);
 	this->_type = type;
 	this->_max = max;
@@ -55,12 +55,12 @@ template<typename T> OperatorControler<T>::OperatorControler(OperatorControler c
 	return this;
 }
 
-template<typename T> OperatorControler<T>::~OperatorControler( void ) {
+template<typename T> OperatorControler<T>::~OperatorControler(void) {
 	return;
 }
 
 
-template <typename T> IOperand const * OperatorControler<T>::operator+( IOperand const & rhs ) const {
+template <typename T> IOperand const * OperatorControler<T>::operator+(IOperand const & rhs) const {
 
 	OperatorFactory factory;
 	ErrorControler error;
@@ -78,7 +78,7 @@ template <typename T> IOperand const * OperatorControler<T>::operator+( IOperand
 	return retVal;
 }
 
-template <typename T> IOperand const * OperatorControler<T>::operator-( IOperand const & rhs ) const {
+template <typename T> IOperand const * OperatorControler<T>::operator-(IOperand const & rhs) const {
 
 	OperatorFactory factory;
 	ErrorControler error;
@@ -96,7 +96,7 @@ template <typename T> IOperand const * OperatorControler<T>::operator-( IOperand
 	return retVal;
 }
 
-template <typename T> IOperand const * OperatorControler<T>::operator*( IOperand const & rhs ) const {
+template <typename T> IOperand const * OperatorControler<T>::operator*(IOperand const & rhs) const {
 
 	OperatorFactory factory;
 	ErrorControler error;
@@ -114,7 +114,7 @@ template <typename T> IOperand const * OperatorControler<T>::operator*( IOperand
 	return retVal;
 }
 
-template <typename T> IOperand const * OperatorControler<T>::operator/( IOperand const & rhs ) const {
+template <typename T> IOperand const * OperatorControler<T>::operator/(IOperand const & rhs) const {
 
 	OperatorFactory factory;
 	ErrorControler error;
@@ -132,7 +132,7 @@ template <typename T> IOperand const * OperatorControler<T>::operator/( IOperand
 	return retVal;
 }
 
-template <typename T> IOperand const * OperatorControler<T>::operator%( IOperand const & rhs ) const {
+template <typename T> IOperand const * OperatorControler<T>::operator%(IOperand const & rhs) const {
 
 	OperatorFactory factory;
 	ErrorControler error;
@@ -150,7 +150,7 @@ template <typename T> IOperand const * OperatorControler<T>::operator%( IOperand
 	return retVal;
 }
 
-template <typename T> IOperand const * OperatorControler<T>::operator^( IOperand const & rhs ) const {
+template <typename T> IOperand const * OperatorControler<T>::operator^(IOperand const & rhs) const {
 
 	OperatorFactory factory;
 	ErrorControler error;
